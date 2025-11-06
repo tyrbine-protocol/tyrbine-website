@@ -42,5 +42,16 @@ const String buildVersion = '$gitCommit';
     exit(exitCode);
   }
 
+    final indexFile = File('build/web/index.html');
+  var html = await indexFile.readAsString();
+
+  html = html.replaceAll(
+    'flutter_bootstrap.js',
+    'flutter_bootstrap.js?v=$gitCommit',
+  );
+
+  await indexFile.writeAsString(html);
+  print('🔄 index.html updated with version: $gitCommit');
+
   print('🚀 Flutter web build complete.');
 }
