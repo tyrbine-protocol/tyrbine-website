@@ -12,8 +12,9 @@ class VaultPda {
   final int initialLiquidity;
   final int currentLiquidity;
   final int cumulativeYield;
+  final int protocolYield;
 
-  VaultPda({required this.address, required this.isActive, required this.baseFee, required this.mint, required this.pythPriceFeedAccount, required this.lpTokenMint, required this.initialLiquidity, required this.cumulativeYield, required this.currentLiquidity});
+  VaultPda({required this.address, required this.isActive, required this.baseFee, required this.mint, required this.pythPriceFeedAccount, required this.lpTokenMint, required this.initialLiquidity, required this.cumulativeYield, required this.currentLiquidity, required this.protocolYield});
 
   factory VaultPda.fromProgramAccount(ProgramAccount programAccount) {
     var binaryAccountData = programAccount.account.data as BinaryAccountData;
@@ -27,7 +28,8 @@ class VaultPda {
       lpTokenMint: base58encode(data.getRange(81, 113).toList()), 
       initialLiquidity: Int64.fromBytes(data.getRange(113, 121).toList()).toInt(), 
       currentLiquidity: Int64.fromBytes(data.getRange(121, 129).toList()).toInt(),
-      cumulativeYield: Int64.fromBytes(data.getRange(129, 137).toList()).toInt(),
+      cumulativeYield: Int64.fromBytes(data.getRange(129, 145).toList()).toInt(),
+      protocolYield: Int64.fromBytes(data.getRange(145, 153).toList()).toInt()
     );
   }
 }

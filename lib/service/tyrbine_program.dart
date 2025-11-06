@@ -8,7 +8,7 @@ import 'package:tyrbine_website/service/config.dart';
 
 class TyrbineProgram {
   
-  static const String programId = "FRJbAEJeEzjBVMjyQyeyGRLUEFPpCTHTHjXQ62vmFJPj";
+  static const String programId = "6UGZsiPJLA7mrQX3g8Mdx5YEs53PH3V8Y6o1w9Ntehyg";
 
   static Future<Message> staking(
       {required String signer,
