@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class HoverTextButton extends StatefulWidget {
   final String text;
+  final String? subText;
   final VoidCallback onTap;
 
-  const HoverTextButton({super.key, required this.text, required this.onTap});
+  const HoverTextButton({super.key, required this.text, required this.onTap, this.subText});
 
   @override
   HoverTextButtonState createState() => HoverTextButtonState();
@@ -27,8 +28,18 @@ class HoverTextButtonState extends State<HoverTextButton> {
             color: _isHovered ? Colors.white : Colors.grey.shade800,
             fontFamily: 'Roobert'
           ),
-          child: Text(widget.text,
-        ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(widget.text),
+              if (widget.subText != null)
+              Padding(
+                padding: const EdgeInsets.only(left: 4.0),
+                child: Text(widget.subText!, style: const TextStyle(fontSize: 12.0)),
+              ),
+            ],
+          ),
       )),
     );
   }

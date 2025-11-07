@@ -6,10 +6,6 @@ version: 1.0.0+1
 environment:
   sdk: ^3.5.4
 
-scripts:
-  build:web:
-    - dart run /Users/main/Projects/tyrbine/tyrbine-website/lib/tools/generate_build_version.dart
-    - flutter build web
 
 dependencies:
   flutter:

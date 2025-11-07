@@ -28,7 +28,7 @@ class BasementWebWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           HoverTextButton(
-            text: 'How it works?', 
+            text: '⩎ How it works?', 
             onTap: () => js.context.callMethod('open', [litepaperLink])
             ),
           const Row(
@@ -60,9 +60,9 @@ class BasementWebWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Text("v: $buildVersion'",
-                  style:
-                      TextStyle(fontSize: 12.0, color: Colors.grey.shade800)),
+              HoverTextButton(text: "v. $buildVersion",
+                subText: "⊣",
+                onTap: () => js.context.callMethod('open', [webGithubLink])),
         ],
       ),
     );
