@@ -1,11 +1,11 @@
 {
-    "name": "spice_ui",
-    "short_name": "spice_ui",
+    "name": "tyrbine",
+    "short_name": "tyrbine",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Shadow Liquidity Layer",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
