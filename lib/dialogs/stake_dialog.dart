@@ -203,7 +203,7 @@ void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {bool?
                               decoration: BoxDecoration(
                                 color: showUnstakeField
                                     ? Colors.grey.withOpacity(0.05)
-                                    : Colors.amber,
+                                    : Colors.amber.withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
@@ -211,7 +211,7 @@ void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {bool?
                                 style: TextStyle(
                                   color: showUnstakeField
                                       ? Colors.grey.shade700
-                                      : Colors.amber.shade900,
+                                      : Colors.amber,
                                 ),
                               ),
                             ),
