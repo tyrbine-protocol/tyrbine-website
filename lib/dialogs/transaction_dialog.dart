@@ -16,8 +16,8 @@ void showTransactionDialog(
     builder: (BuildContext context) {
       return Dialog(
         child: Container(
-          height: 320.0,
-          width: 240.0,
+          height: 280.0,
+          width: 180.0,
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,

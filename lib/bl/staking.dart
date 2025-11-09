@@ -9,7 +9,7 @@ import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';
 
 
-Future staking(BuildContext context, {required Adapter adapter, required Vault vault, required String amountText}) async {
+Future<void> staking(BuildContext context, {required Adapter adapter, required Vault vault, required String amountText}) async {
   final status = ValueNotifier<String>('Awaiting approve');
   final solscanUrl = ValueNotifier<String?>(null);
   showTransactionDialog(context, status, solscanUrl, onRetry: () => staking(context, adapter: adapter, vault: vault, amountText: amountText));

@@ -3,6 +3,7 @@
 // import 'package:flutter/widgets.dart';
 // import 'package:solana/solana.dart';
 // import 'package:tyrbine_website/adapter/adapter.dart';
+// import 'package:tyrbine_website/dialogs/transaction_dialog.dart';
 // import 'package:tyrbine_website/models/vault.dart';
 // import 'package:tyrbine_website/service/config.dart';
 // import 'package:tyrbine_website/service/tyrbine_program.dart';
@@ -10,7 +11,9 @@
 
 
 // Future unstaking(BuildContext context, {required Adapter adapter, required Vault vault, required String amountText}) async {
-//   Toastification.processing('Awaiting approve');
+//   final status = ValueNotifier<String>('Awaiting approve');
+//   final solscanUrl = ValueNotifier<String?>(null);
+//   showTransactionDialog(context, status, solscanUrl, onRetry: () => unstaking(context, adapter: adapter, vault: vault, amountText: amountText));
 //   final amount = (num.parse(amountText) * pow(10, vault.decimals)).toInt();
   
 //   final message = await TyrbineProgram.unstaking(signer: adapter.pubkey!, vault: vault, amount: amount);

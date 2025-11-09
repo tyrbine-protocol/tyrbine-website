@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:tyrbine_website/adapter/adapter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tyrbine_website/adapter/wallet_notifier.dart';
+import 'package:tyrbine_website/dialogs/stake_dialog.dart';
 import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 
-class StakesList extends StatelessWidget {
+class StakesList extends ConsumerStatefulWidget {
   final List<Staked> stakes;
-  final Adapter adapter;
 
-  const StakesList({super.key, required this.stakes, required this.adapter});
+  const StakesList({super.key, required this.stakes});
 
   @override
+  ConsumerState<StakesList> createState() => _StakesListState();
+}
+
+class _StakesListState extends ConsumerState<StakesList> {
+  @override
   Widget build(BuildContext context) {
+    final wallet = ref.watch(walletProvider);
     return Column(
-      children: stakes.map((stake) {
+      children: widget.stakes.map((stake) {
         return Card(
           color: Colors.transparent,
           elevation: 3,
@@ -37,24 +44,22 @@ class StakesList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.grey.withOpacity(0.05)
-                            ),
-                            child: Image.network(
-                                        stake.logoUrl,
-                                        width: 21.0,
-                                        height: 21.0,
-                                        errorBuilder: (context, error, stackTrace) =>
-                                            const Icon(Icons.error),
-                                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey.withOpacity(0.05)
                           ),
-                          const SizedBox(width: 16.0),
-                        ],
+                          child: Image.network(
+                                      stake.logoUrl,
+                                      width: 22.0,
+                                      height: 22.0,
+                                      errorBuilder: (context, error, stackTrace) =>
+                                          const Icon(Icons.error),
+                                    ),
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,9 +93,17 @@ class StakesList extends StatelessWidget {
                     ],
                   ),
                   CustomInkWell(
-                    // Add dialog menu
-                    onTap: () {},
-                    child: Icon(Icons.more_vert, color: Colors.grey.shade800)),
+                    onTap: () => showStakeDialog(context, stake, wallet!),
+                    child: Container(
+                      height: 35.0,
+                      width: 35.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey.withOpacity(0.05)
+                      ),
+                      child: Icon(Icons.more_vert, color: Colors.grey.shade800),
+                    ),
+                  ),
                 ],
               ),
             ),

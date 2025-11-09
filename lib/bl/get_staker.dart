@@ -56,7 +56,6 @@ Future<List<Staked>> getStaker({required String owner, required List<Vault> vaul
 
         if (tokenAccount.info.mint == vault.lpTokenMint) {
 
-          // get staker
           final stakerPDA = await Ed25519HDPublicKey.findProgramAddress(seeds: [
             "staker-seed".codeUnits,
             base58decode(vault.address),
@@ -72,13 +71,14 @@ Future<List<Staked>> getStaker({required String owner, required List<Vault> vaul
           final decimals = tokenAccount.info.tokenAmount.decimals;
           final uiAmount = num.tryParse(uiAmountStr ?? '0') ?? 0;
 
+          const int scale = 100000000000;
           num earned;
 
           if (uiAmount > 0) {
-            final yieldPortion = (vault.cumulativeYield - staker.lastCumulativeYield) * uiAmount / 100;
-            earned = (yieldPortion + staker.pendingClaim) / pow(10, decimals);
+            final yieldPortion = (vault.cumulativeYield - staker.lastCumulativeYield) * uiAmount;
+            earned = (yieldPortion + staker.pendingClaim) / scale;
           } else {
-            earned = staker.pendingClaim / pow(10, decimals);
+            earned = staker.pendingClaim / scale;
           }
 
           if (earned == 0 && uiAmount == 0) {

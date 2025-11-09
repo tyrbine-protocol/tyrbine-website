@@ -6,7 +6,7 @@ import 'package:tyrbine_website/dialogs/transaction_dialog.dart';
 import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';
 
-Future claim(BuildContext context, {required Adapter adapter, required String mint}) async {
+Future<void> claim(BuildContext context, {required Adapter adapter, required String mint}) async {
   final status = ValueNotifier<String>('Awaiting approve');
   final solscanUrl = ValueNotifier<String?>(null);
   showTransactionDialog(context, status, solscanUrl, onRetry: () => claim(context, adapter: adapter, mint: mint));

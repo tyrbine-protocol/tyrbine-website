@@ -502,8 +502,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                   style: TextStyle(color: Color(0xFF5F5B5B)),
                                                 ),
                                               ),
-                                              StakesList(
-                                                      stakes: stakes, adapter: wallet!),
+                                              StakesList(stakes: stakes),
                                               const SizedBox(height: 8.0),
                                             ],
                                           ),

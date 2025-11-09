@@ -15,7 +15,7 @@ void chooseTokenDialog(BuildContext context, WidgetRef ref, List<Vault> vaults, 
           return Dialog(
             child: Container(
               height: 450.0,
-              width: 400.0,
+              width: 384.0,
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border.all(
