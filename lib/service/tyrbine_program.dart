@@ -3,6 +3,7 @@ import 'package:fixnum/fixnum.dart';
 import 'package:solana/base58.dart';
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';
+import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/service/config.dart';
 
@@ -124,7 +125,7 @@ class TyrbineProgram {
 
   static Future<Message> unstaking(
       {required String signer,
-      required Vault vault,
+      required Staked stake,
       required int amount}) async {
     final List<int> data = [];
 
@@ -136,7 +137,7 @@ class TyrbineProgram {
     data.addAll(Int64(amount).toBytes());
 
     final vaultPDA = await Ed25519HDPublicKey.findProgramAddress(
-        seeds: ["vault-seed".codeUnits, base58decode(vault.mint)],
+        seeds: ["vault-seed".codeUnits, base58decode(stake.mint)],
         programId: Ed25519HDPublicKey.fromBase58(programId));
 
     var lpMint = await Ed25519HDPublicKey.findProgramAddress(
@@ -145,7 +146,7 @@ class TyrbineProgram {
 
     var signerATA = await findAssociatedTokenAddress(
         owner: Ed25519HDPublicKey.fromBase58(signer),
-        mint: Ed25519HDPublicKey.fromBase58(vault.mint));
+        mint: Ed25519HDPublicKey.fromBase58(stake.mint));
 
     var signerLpATA = await findAssociatedTokenAddress(
         owner: Ed25519HDPublicKey.fromBase58(signer), mint: lpMint);
@@ -162,26 +163,26 @@ class TyrbineProgram {
     ], programId: Ed25519HDPublicKey.fromBase58(programId));
 
     var treasuryATA = await findAssociatedTokenAddress(
-        owner: treasury, mint: Ed25519HDPublicKey.fromBase58(vault.mint));
+        owner: treasury, mint: Ed25519HDPublicKey.fromBase58(stake.mint));
 
     final instructions = <Instruction>[];
 
     // Если пул — это wrapped SOL (So111...12), добавляем SOL -> ATA логику
-    if (vault.mint == "So11111111111111111111111111111111111111112") {
+    if (stake.mint == "So11111111111111111111111111111111111111112") {
       final getWsolATA = await solanaClient.getAssociatedTokenAccount(
           owner: Ed25519HDPublicKey.fromBase58(signer),
-          mint: Ed25519HDPublicKey.fromBase58(vault.mint));
+          mint: Ed25519HDPublicKey.fromBase58(stake.mint));
 
       if (getWsolATA == null) {
         final findATA = await findAssociatedTokenAddress(
             owner: Ed25519HDPublicKey.fromBase58(signer),
-            mint: Ed25519HDPublicKey.fromBase58(vault.mint));
+            mint: Ed25519HDPublicKey.fromBase58(stake.mint));
         instructions.add(
           AssociatedTokenAccountInstruction.createAccount(
               funder: Ed25519HDPublicKey.fromBase58(signer),
               address: findATA,
               owner: Ed25519HDPublicKey.fromBase58(signer),
-              mint: Ed25519HDPublicKey.fromBase58(vault.mint)),
+              mint: Ed25519HDPublicKey.fromBase58(stake.mint)),
         );
       }
     }
@@ -193,7 +194,7 @@ class TyrbineProgram {
           AccountMeta.writeable(
               pubKey: Ed25519HDPublicKey.fromBase58(signer), isSigner: true),
           AccountMeta.writeable(
-              pubKey: Ed25519HDPublicKey.fromBase58(vault.mint),
+              pubKey: Ed25519HDPublicKey.fromBase58(stake.mint),
               isSigner: false),
           AccountMeta.writeable(pubKey: lpMint, isSigner: false),
           AccountMeta.writeable(pubKey: signerATA, isSigner: false),
@@ -211,7 +212,7 @@ class TyrbineProgram {
       ),
     );
 
-    if (vault.mint == "So11111111111111111111111111111111111111112") {
+    if (stake.mint == "So11111111111111111111111111111111111111112") {
       instructions.addAll([
         TokenInstruction.closeAccount(
             accountToClose: signerATA,
