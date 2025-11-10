@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:solana/base58.dart';
 import 'package:solana/dto.dart';
@@ -84,12 +86,14 @@ Future<List<Staked>> getStaker({required String owner, required List<Vault> vaul
           const int scale = 100000000000;
           num earned;
 
-          if (uiAmount > 0) {
-            final yieldPortion = (vault.cumulativeYield - staker.lastCumulativeYield) * uiAmount;
-            earned = (yieldPortion + staker.pendingClaim) / scale;
-          } else {
-            earned = staker.pendingClaim / scale;
-          }
+          // if (uiAmount > 0) {
+            
+          // } else {
+          //   earned = staker.pendingClaim / pow(10, decimals);
+          // }
+
+          final yieldPortion = (vault.cumulativeYield - staker.lastCumulativeYield) * uiAmount;
+            earned = yieldPortion / scale + (staker.pendingClaim / pow(10, decimals));
 
           if (earned == 0 && uiAmount == 0) {
             continue;

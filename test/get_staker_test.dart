@@ -32,9 +32,9 @@ final List<Vault> vaultsData = [
 ];
   
   test('get staker', () async {
-    final List<Staked> staked = await getStaker(owner: '4aMdEiKLkXMz1F87Q69axNQdwRCna18MjSjAxGBetsn3', vaultsData: vaultsData);
+    final List<Staked> staked = await getStaker(owner: 'Cy89hxcHCuZhyR8Hjc5AZVcsiNXtFXynf4wDHSi7QsTC', vaultsData: vaultsData);
     for (var stake in staked) {
-      print("${stake.symbol}: ${stake.earned.trimTo(9)}");
+      print("${stake.symbol}: ${stake.earned.trimTo(stake.decimals)}");
     }
 });
 
