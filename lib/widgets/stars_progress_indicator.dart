@@ -23,7 +23,6 @@ class _StarsProgressIndicatorState extends State<StarsProgressIndicator>
   void initState() {
     super.initState();
 
-    // Центральная звезда
     _centerController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -33,7 +32,6 @@ class _StarsProgressIndicatorState extends State<StarsProgressIndicator>
 
     _animateCenterStar();
 
-    // Левые и правые звезды
     _leftController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),

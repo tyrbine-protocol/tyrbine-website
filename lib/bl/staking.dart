@@ -30,7 +30,12 @@ Future<void> staking(BuildContext context, WidgetRef ref, {required Adapter adap
     await Future.delayed(const Duration(seconds: 10));
     // await solanaClient.waitForSignatureStatus(signature, status: Commitment.finalized, timeout: const Duration(seconds: 30));
     status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
-    await ref.read(stakerNotifierProvider.notifier).loadStakerBackground(vaultsData: vaultsData, owner: adapter.pubkey!);
+    
+    if (vaultsData.isEmpty) {
+      await ref.read(stakerNotifierProvider.notifier).loadStaker(vaultsData: vaultsData, owner: adapter.pubkey!);
+    } else {
+      await ref.read(stakerNotifierProvider.notifier).loadStakerBackground(vaultsData: vaultsData, owner: adapter.pubkey!);
+    }
   } catch (_) {
     status.value = TxStatus(status: 'Rejected');
   }
