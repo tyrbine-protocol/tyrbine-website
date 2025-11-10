@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:solana/base58.dart';
 import 'package:solana/dto.dart';
@@ -20,7 +19,6 @@ class StakerNotifier extends AsyncNotifier<List<Staked>> {
     return [];
   }
 
-  /// Метод для загрузки стейка
   Future<void> loadStaker({
     required String owner,
     required List<Vault> vaultsData,

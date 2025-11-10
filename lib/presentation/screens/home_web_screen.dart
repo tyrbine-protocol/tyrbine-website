@@ -8,6 +8,7 @@ import 'package:tyrbine_website/bl/get_staker.dart';
 import 'package:tyrbine_website/bl/get_stats.dart';
 import 'package:tyrbine_website/bl/staking.dart';
 import 'package:tyrbine_website/dialogs/choose_token_dialog.dart';
+import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/presentation/bars/top_web_bar.dart';
 import 'package:tyrbine_website/presentation/basement/basement_web_widget.dart';
@@ -35,6 +36,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
   bool _isAtTop = true;
   bool _showVaultSection = false;
   num estimatedDailyAmount = 0;
+  final transactionStatus = ValueNotifier<TxStatus>(TxStatus(status: ''));
 
   @override
   void initState() {
@@ -126,7 +128,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 90.0),
+                        const SizedBox(height: 75.0),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -343,6 +345,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                       ? staking(context,
                                                           adapter: wallet!,
                                                           vault: vault,
+                                                          status: transactionStatus,
                                                           amountText:
                                                               _stakeAmountController
                                                                   .text)
@@ -417,7 +420,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                   style: TextStyle(color: Color(0xFF5F5B5B)),
                                                 ),
                                               ),
-                                              StakesList(stakes: stakes),
+                                              StakesList(stakes: stakes, transactionStatus: transactionStatus),
                                               const SizedBox(height: 8.0),
                                             ],
                                           ),
@@ -444,14 +447,14 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                 ],
               ),
             ),
-            const Positioned(
+            Positioned(
               top: 0,
               left: 0,
               right: 0,
-              child: TopWebBar(),
+              child: TopWebBar(transactionStatus: transactionStatus),
             ),
             Positioned(
-              top: 85.0,
+              top: 60.0,
               left: 0,
               right: 0,
               child: AnimatedOpacity(

@@ -8,6 +8,7 @@ import 'package:tyrbine_website/bl/get_staker.dart';
 import 'package:tyrbine_website/bl/get_stats.dart';
 import 'package:tyrbine_website/bl/staking.dart';
 import 'package:tyrbine_website/dialogs/choose_token_dialog.dart';
+import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/presentation/bars/top_mob_bar.dart';
 import 'package:tyrbine_website/presentation/basement/basement_mob_widget.dart';
@@ -29,6 +30,8 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _stakeAmountController = TextEditingController();
   late AnimationController _controller;
+  final transactionStatus = ValueNotifier<TxStatus>(TxStatus(status: ''));
+  final transactionSignature = ValueNotifier<String>('');
 
   bool _hasScrolled = false;
   bool _isAtTop = true;
@@ -435,6 +438,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                         ? staking(context,
                                                             adapter: wallet!,
                                                             vault: vault,
+                                                            status: transactionStatus,
                                                             amountText:
                                                                 _stakeAmountController
                                                                     .text)

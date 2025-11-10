@@ -3,16 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:solana/solana.dart';
 import 'package:tyrbine_website/adapter/adapter.dart';
-import 'package:tyrbine_website/dialogs/transaction_dialog.dart';
 import 'package:tyrbine_website/models/staked.dart';
+import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';
 
 
-Future unstaking(BuildContext context, {required Adapter adapter, required Staked stake, required String amountText}) async {
-  final status = ValueNotifier<String>('Awaiting approve');
-  final solscanUrl = ValueNotifier<String?>(null);
-  showTransactionDialog(context, status, solscanUrl, onRetry: () => unstaking(context, adapter: adapter, stake: stake, amountText: amountText));
+Future unstaking(BuildContext context, {required Adapter adapter, required Staked stake, required ValueNotifier<TxStatus> status, required String amountText}) async {
+  status.value = TxStatus(status: 'Awaiting approve');
+
   final amount = (num.parse(amountText) * pow(10, stake.decimals)).toInt();
   
   final message = await TyrbineProgram.unstaking(signer: adapter.pubkey!, stake: stake, amount: amount);
@@ -25,10 +24,10 @@ Future unstaking(BuildContext context, {required Adapter adapter, required Stake
   tx.addAll(compiledMessage.toByteArray());
   try {
     final signature = await adapter.signAndSendTransaction(Uint8List.fromList(tx));
-    solscanUrl.value = 'https://solscan.io/tx/$signature?cluster=devnet';
-    status.value = 'Sending transaction...';
+    status.value = TxStatus(status: 'Sending transaction', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
     await Future.delayed(const Duration(seconds: 10));
-    status.value = 'Success';
+    status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
   } catch (_) {
-    status.value = 'Rejected';  }
+    status.value = TxStatus(status: 'Rejected');
+  }
 }

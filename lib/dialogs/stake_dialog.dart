@@ -4,11 +4,12 @@ import 'package:tyrbine_website/adapter/adapter.dart';
 import 'package:tyrbine_website/bl/claim.dart';
 import 'package:tyrbine_website/bl/unstaking.dart';
 import 'package:tyrbine_website/models/staked.dart';
+import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 
-void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {bool? isMob}) {
+void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {required ValueNotifier<TxStatus> status, bool? isMob}) {
   Navigator.maybePop(context);
 
   showDialog(
@@ -188,14 +189,14 @@ void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {bool?
                         /// Claim
                         Expanded(
                           child: CustomInkWell(
-                            onTap: () async {
+                            onTap: () {
                               if (showUnstakeField) {
                                 setState(() {
                                   showUnstakeField = false;
                                 });
-                                await Future.delayed(const Duration(milliseconds: 250));
                               }
-                              claim(context, adapter: adapter, mint: stake.mint);
+                              claim(context, adapter: adapter, status: status, mint: stake.mint);
+                              Navigator.of(context).pop();
                             },
                             child: Container(
                               height: 35.0,
@@ -262,7 +263,8 @@ void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {bool?
                         onTap: () {
                           final amount = unstakeController.text.trim();
                           if (amount.isNotEmpty) {
-                            unstaking(context, adapter: adapter, stake: stake, amountText: unstakeController.text);
+                            unstaking(context, adapter: adapter, stake: stake, status: status, amountText: unstakeController.text);
+                            Navigator.of(context).pop();
                           }
                         },
                         child: Container(

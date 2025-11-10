@@ -1,26 +1,53 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tyrbine_website/adapter/wallet_notifier.dart';
 import 'package:tyrbine_website/dialogs/wallet_dialog.dart';
 import 'package:tyrbine_website/l10n/app_localizations.dart';
+import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 import 'package:tyrbine_website/widgets/custom_button.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:js' as js;
 
 class TopWebBar extends ConsumerStatefulWidget {
-  const TopWebBar({super.key});
+  final ValueNotifier<TxStatus>? transactionStatus;
+
+  const TopWebBar({super.key, this.transactionStatus});
 
   @override
   ConsumerState<TopWebBar> createState() => _TopWebBarState();
 }
 
-class _TopWebBarState extends ConsumerState<TopWebBar> {
+class _TopWebBarState extends ConsumerState<TopWebBar>
+    with TickerProviderStateMixin {
   OverlayEntry? _tooltipOverlay;
+  Timer? _hideTimer;
+  AnimationController? _progressController;
 
   void _hideTooltip() {
     _tooltipOverlay?.remove();
     _tooltipOverlay = null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _startHideTimer(ValueNotifier<TxStatus> status, {required int seconds}) {
+    _hideTimer?.cancel();
+    _progressController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: seconds),
+    );
+    _progressController?.reset();
+    _progressController?.forward();
+
+    _hideTimer = Timer(Duration(seconds: seconds), () {
+      status.value = TxStatus(status: '');
+    });
   }
 
   @override
@@ -30,81 +57,186 @@ class _TopWebBarState extends ConsumerState<TopWebBar> {
     final isConnected = wallet?.pubkey != null;
     final loc = AppLocalizations.of(context)!;
 
-    return Column(
-      children: [
-        Container(
-          height: 25.0,
-          width: MediaQuery.of(context).size.width,
-          color: const Color(0xFF7637EC),
-          alignment: Alignment.center,
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.campaign, color: Color(0xFFBE9EFB)),
-              SizedBox(width: 16.0),
-              Text('Tyrbine has been launched on Solana Devnet and is undergoing testing prior to its launch on the Solana Mainnet', style: TextStyle(fontSize: 14.0, color: Color(0xFFBE9EFB))),
-            ],
-          ),
-        ),
-        Container(
-          height: 60.0,
-          width: MediaQuery.of(context).size.width,
-          decoration:
-              BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 280.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/logos/tyr_logo.svg',
-                        height: 28.0, width: 28.0),
-                    const SizedBox(width: 16.0),
-                    const Text('Tyrbine', style: TextStyle(fontSize: 18.0)),
-                  ],
+    return ValueListenableBuilder<TxStatus>(
+      valueListenable: widget.transactionStatus ?? ValueNotifier(TxStatus(status: '')),
+      builder: (context, value, _) {
+        
+        final showIndicator = value.status.isNotEmpty &&
+            value.status != 'Awaiting approve' &&
+            value.status != 'Awaiting approval' &&
+            value.status != 'Sending transaction';
+
+        
+        if (showIndicator) {
+          final seconds =
+              value.status == 'Success' ? 7 : 3;
+          _startHideTimer(widget.transactionStatus!, seconds: seconds);
+        } else {
+          _progressController?.reset();
+          _hideTimer?.cancel();
+        }
+
+        return Column(
+          children: [
+            CustomInkWell(
+              onTap: () async => await js.context.callMethod('open', [value.signature!]),
+              child: Container(
+                height: 60.0,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
                 ),
-                isConnected
-                    ? CustomInkWell(
-                        onTap: () => walletNotifier.disconnect(),
-                        child: Container(
-                          height: 32.0,
-                          width: 160.0,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(5.0)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(wallet!.pubkey!.cutText(),
-                                  style: const TextStyle(
-                                      color: Colors.redAccent, fontSize: 15.0)),
-                              const SizedBox(width: 8.0),
-                              const Icon(Icons.power_settings_new,
-                                  size: 18.0, color: Colors.redAccent)
-                            ],
-                          ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 280.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // LOGO
+                      SizedBox(
+                        width: 160.0,
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('assets/logos/tyr_logo.svg',
+                                height: 28.0, width: 28.0),
+                            const SizedBox(width: 16.0),
+                            const Text('Tyrbine', style: TextStyle(fontSize: 18.0)),
+                          ],
                         ),
-                      )
-                    : CustomButton(
-                        title: loc.connect,
-                        iconData: Icons.power,
-                        onTap: () => showWalletDialog(context, ref),
-                      )
-              ],
+                      ),
+              
+                      // TRANSACTION STATUS
+                      if (value.status.isNotEmpty)
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              height: 30.0,
+                              width: 400.0,
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.05),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  if (value.status == "Awaiting approve" || value.status == "Sending transaction")
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 16.0),
+                                    child: SizedBox(
+                                      height: 15.0,
+                                      width: 15.0,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.orangeAccent,
+                                        strokeWidth: 1.0,
+                                        backgroundColor: Colors.orangeAccent.withOpacity(0.05),
+                                      ),
+                                    ),
+                                  ),
+                                  if (value.status == "Success")
+                                  const Padding(
+                                    padding: EdgeInsets.only(right: 16.0),
+                                    child: Icon(Icons.check_circle_rounded, color: Colors.greenAccent, size: 16.0),
+                                  ),
+                                  Text(
+                                    value.status,
+                                    style: TextStyle(
+                                      color: value.status == 'Success'
+                                          ? Colors.greenAccent
+                                          : (value.status == 'Rejected' ||
+                                                  value.status == 'Error'
+                                              ? Colors.red
+                                              : Colors.orangeAccent),
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  if (value.status == "Success")
+                                  const Text("view", style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.grey))
+                                ],
+                              ),
+                            ),
+              
+                            // PROGRESS INDICATOR (only when needed)
+                            if (showIndicator)
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                child: AnimatedBuilder(
+                                  animation: _progressController!,
+                                  builder: (context, _) {
+                                    final progress =
+                                        1 - _progressController!.value;
+                                    return Container(
+                                      height: 1,
+                                      width: 400 * progress,
+                                      decoration: BoxDecoration(
+                                        color: value.status == 'Success'
+                                            ? Colors.greenAccent
+                                            : (value.status == 'Rejected' ||
+                                                    value.status == 'Error'
+                                                ? Colors.red
+                                                : Colors.orangeAccent),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomRight: Radius.circular(4),
+                                          bottomLeft: Radius.circular(4),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                          ],
+                        ),
+              
+                      // WALLET
+                      isConnected
+                          ? CustomInkWell(
+                              onTap: () => walletNotifier.disconnect(),
+                              child: Container(
+                                height: 32.0,
+                                width: 160.0,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(wallet!.pubkey!.cutText(),
+                                        style: const TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 15.0)),
+                                    const SizedBox(width: 8.0),
+                                    const Icon(Icons.power_settings_new,
+                                        size: 18.0, color: Colors.redAccent)
+                                  ],
+                                ),
+                              ),
+                            )
+                          : CustomButton(
+                              title: loc.connect,
+                              iconData: Icons.power,
+                              onTap: () => showWalletDialog(context, ref),
+                            ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 
   @override
   void dispose() {
     _hideTooltip();
+    _hideTimer?.cancel();
+    _progressController?.dispose();
     super.dispose();
   }
 }
