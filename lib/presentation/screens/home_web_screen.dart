@@ -8,7 +8,6 @@ import 'package:tyrbine_website/bl/get_staker.dart';
 import 'package:tyrbine_website/bl/get_stats.dart';
 import 'package:tyrbine_website/bl/staking.dart';
 import 'package:tyrbine_website/dialogs/choose_token_dialog.dart';
-import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/presentation/bars/top_web_bar.dart';
@@ -40,7 +39,6 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
   num estimatedDailyAmount = 0;
   final transactionStatus = ValueNotifier<TxStatus>(TxStatus(status: ''));
   late final TopWebBar topWebBar;
-  List<Staked> stakesOldList = [];
 
 
   @override
@@ -403,7 +401,6 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                             padding: const EdgeInsets.only(left: 280.0, right: 280.0, top: 16.0, bottom: 64.0),
                             child: stakerAsync.when(
                                   data: (stakes) {
-                                    stakesOldList = stakes;
                                     if (stakes.isEmpty) {
                                       return const SizedBox();
                                     }
@@ -438,42 +435,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                       ],
                                     );
                                   },
-                                  loading: () {
-                                    return Column(
-                                    children: [
-                                      const StarsProgressIndicator(),
-                                      if (stakesOldList.isNotEmpty)
-                                      Column(
-                                        children: [
-                                          const SizedBox(height: 16.0),
-                                      Container(
-                                          width: 400.0,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(12.0),
-                                            border: Border.all(
-                                                color: Colors.grey.shade700, width: 0.2),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 16.0, left: 16.0, bottom: 8.0),
-                                                child: Text(
-                                                  'Your stakes',
-                                                  style: TextStyle(color: Color(0xFF5F5B5B)),
-                                                ),
-                                              ),
-                                              StakesList(stakes: stakesOldList, transactionStatus: transactionStatus, vaultsData: stat.vaults),
-                                              const SizedBox(height: 8.0),
-                                            ],
-                                          ),
-                                        ),
-                                        ],
-                                      )
-                                    ],
-                                  );
-                                  },
+                                  loading: () => const StarsProgressIndicator(),
                                   error: (e, _) => Padding(
                                     padding: const EdgeInsets.only(top: 32.0),
                                     child: Text('Error: $e',

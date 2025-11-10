@@ -31,7 +31,8 @@ Future unstaking(BuildContext context, WidgetRef ref, {required Adapter adapter,
     await Future.delayed(const Duration(seconds: 10));
     status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
     
-    if (vaultsData.isEmpty) {
+    final currentStakes = ref.read(stakerNotifierProvider);
+    if (currentStakes.value == null || currentStakes.value!.isEmpty) {
       await ref.read(stakerNotifierProvider.notifier).loadStaker(vaultsData: vaultsData, owner: adapter.pubkey!);
     } else {
       await ref.read(stakerNotifierProvider.notifier).loadStakerBackground(vaultsData: vaultsData, owner: adapter.pubkey!);
