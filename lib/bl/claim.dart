@@ -23,7 +23,7 @@ Future<void> claim(BuildContext context, WidgetRef ref, {required Adapter adapte
   try {
     final signature = await adapter.signAndSendTransaction(Uint8List.fromList(tx));
     status.value = TxStatus(status: 'Sending transaction', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
-    await Future.delayed(const Duration(seconds: 10));
+    await solanaClient.waitForSignatureStatus(signature, status: Commitment.processed, timeout: const Duration(seconds: 30));
     status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
     
     final currentStakes = ref.read(stakerNotifierProvider);
