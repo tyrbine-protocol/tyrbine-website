@@ -435,9 +435,12 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                   const SizedBox(height: 32.0),
                                                   CustomInkWell(
                                                     onTap: () => isConnected
-                                                        ? staking(context,
+                                                        ? staking(
+                                                            context,
+                                                            ref,
                                                             adapter: wallet!,
                                                             vault: vault,
+                                                            vaultsData: stat.vaults,
                                                             status: transactionStatus,
                                                             amountText:
                                                                 _stakeAmountController
@@ -514,7 +517,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                   style: TextStyle(color: Color(0xFF5F5B5B)),
                                                 ),
                                               ),
-                                              StakesList(stakes: stakes),
+                                              StakesList(stakes: stakes, vaultsData: stat.vaults),
                                               const SizedBox(height: 8.0),
                                             ],
                                           ),

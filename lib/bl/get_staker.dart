@@ -31,14 +31,26 @@ class StakerNotifier extends AsyncNotifier<List<Staked>> {
       state = AsyncValue.error(e, st);
     }
   }
+
+  Future<void> loadStakerBackground({
+    required String owner,
+    required List<Vault> vaultsData,
+  }) async {
+    try {
+      final staked = await getStaker(owner: owner, vaultsData: vaultsData);
+      state = AsyncValue.data(staked);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+  }
 }
 
 Future<List<Staked>> getStaker({required String owner, required List<Vault> vaultsData}) async {
     List<VaultPda> vaults = [];
     List<Staked> staked = [];
 
-    final accounts = await solanaClient.rpcClient.getTokenAccountsByOwner(owner, const TokenAccountsFilter.byProgramId(TokenProgram.programId), encoding: Encoding.jsonParsed);
-    var tyrbineVaults = await solanaClient.rpcClient.getProgramAccounts(TyrbineProgram.programId, encoding: Encoding.jsonParsed, filters: [const ProgramDataFilter.dataSize(161)]);
+    final accounts = await solanaClient.rpcClient.getTokenAccountsByOwner(owner, const TokenAccountsFilter.byProgramId(TokenProgram.programId), encoding: Encoding.jsonParsed, commitment: Commitment.processed);
+    var tyrbineVaults = await solanaClient.rpcClient.getProgramAccounts(TyrbineProgram.programId, encoding: Encoding.jsonParsed, filters: [const ProgramDataFilter.dataSize(161)], commitment: Commitment.processed);
 
     for (var value in tyrbineVaults) {
       vaults.add(VaultPda.fromProgramAccount(value));

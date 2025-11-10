@@ -18,6 +18,7 @@ import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 import 'package:tyrbine_website/widgets/stakes_list.dart';
 import 'package:tyrbine_website/widgets/hover_container_card.dart';
 
+
 class HomeWebScreen extends ConsumerStatefulWidget {
   final String vaultMint;
   const HomeWebScreen({super.key, required this.vaultMint});
@@ -37,10 +38,13 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
   bool _showVaultSection = false;
   num estimatedDailyAmount = 0;
   final transactionStatus = ValueNotifier<TxStatus>(TxStatus(status: ''));
+  late final TopWebBar topWebBar;
+
 
   @override
   void initState() {
     super.initState();
+    topWebBar = TopWebBar(transactionStatus: transactionStatus);
     _stakeAmountController.addListener(_onStakeAmountChanged);
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2))
@@ -342,9 +346,12 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                 const SizedBox(height: 32.0),
                                                 CustomInkWell(
                                                   onTap: () => isConnected
-                                                      ? staking(context,
+                                                      ? staking(
+                                                          context,
+                                                          ref,
                                                           adapter: wallet!,
                                                           vault: vault,
+                                                          vaultsData: stat.vaults,
                                                           status: transactionStatus,
                                                           amountText:
                                                               _stakeAmountController
@@ -420,7 +427,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                   style: TextStyle(color: Color(0xFF5F5B5B)),
                                                 ),
                                               ),
-                                              StakesList(stakes: stakes, transactionStatus: transactionStatus),
+                                              StakesList(stakes: stakes, transactionStatus: transactionStatus, vaultsData: stat.vaults),
                                               const SizedBox(height: 8.0),
                                             ],
                                           ),
@@ -451,7 +458,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
               top: 0,
               left: 0,
               right: 0,
-              child: TopWebBar(transactionStatus: transactionStatus),
+              child: topWebBar,
             ),
             Positioned(
               top: 60.0,

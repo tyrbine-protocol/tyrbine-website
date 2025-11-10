@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tyrbine_website/adapter/adapter.dart';
 import 'package:tyrbine_website/bl/claim.dart';
 import 'package:tyrbine_website/bl/unstaking.dart';
 import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
+import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 
-void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {required ValueNotifier<TxStatus> status, bool? isMob}) {
+void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vault> vaultsData, Adapter adapter, {required ValueNotifier<TxStatus> status, bool? isMob}) {
   Navigator.maybePop(context);
 
   showDialog(
@@ -195,7 +197,7 @@ void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {requi
                                   showUnstakeField = false;
                                 });
                               }
-                              claim(context, adapter: adapter, status: status, mint: stake.mint);
+                              claim(context, ref, adapter: adapter, status: status, mint: stake.mint, vaultsData: vaultsData);
                               Navigator.of(context).pop();
                             },
                             child: Container(
@@ -263,7 +265,7 @@ void showStakeDialog(BuildContext context, Staked stake, Adapter adapter, {requi
                         onTap: () {
                           final amount = unstakeController.text.trim();
                           if (amount.isNotEmpty) {
-                            unstaking(context, adapter: adapter, stake: stake, status: status, amountText: unstakeController.text);
+                            unstaking(context, ref, adapter: adapter, stake: stake, status: status, vaultsData: vaultsData, amountText: unstakeController.text);
                             Navigator.of(context).pop();
                           }
                         },

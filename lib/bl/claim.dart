@@ -1,12 +1,15 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:solana/solana.dart';
 import 'package:tyrbine_website/adapter/adapter.dart';
+import 'package:tyrbine_website/bl/get_staker.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
+import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';
 
-Future<void> claim(BuildContext context, {required Adapter adapter, required String mint, required ValueNotifier<TxStatus> status}) async {
+Future<void> claim(BuildContext context, WidgetRef ref, {required Adapter adapter, required String mint, required ValueNotifier<TxStatus> status, required List<Vault> vaultsData,}) async {
   status.value = TxStatus(status: 'Awaiting approve');
 
   final message = await TyrbineProgram.claim(signer: adapter.pubkey!, mint: mint);
@@ -22,6 +25,7 @@ Future<void> claim(BuildContext context, {required Adapter adapter, required Str
     status.value = TxStatus(status: 'Sending transaction', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
     await Future.delayed(const Duration(seconds: 10));
     status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
+    await ref.read(stakerNotifierProvider.notifier).loadStakerBackground(vaultsData: vaultsData, owner: adapter.pubkey!);
   } catch (_) {
     status.value = TxStatus(status: 'Rejected');
   }

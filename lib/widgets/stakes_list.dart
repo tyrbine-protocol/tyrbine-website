@@ -4,13 +4,15 @@ import 'package:tyrbine_website/adapter/wallet_notifier.dart';
 import 'package:tyrbine_website/dialogs/stake_dialog.dart';
 import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
+import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 
 class StakesList extends ConsumerStatefulWidget {
   final List<Staked> stakes;
   final ValueNotifier<TxStatus>? transactionStatus;
+  final List<Vault> vaultsData;
 
-  const StakesList({super.key, required this.stakes, this.transactionStatus});
+  const StakesList({super.key, required this.stakes, this.transactionStatus, required this.vaultsData});
 
   @override
   ConsumerState<StakesList> createState() => _StakesListState();
@@ -95,7 +97,7 @@ class _StakesListState extends ConsumerState<StakesList> {
                     ],
                   ),
                   CustomInkWell(
-                    onTap: () => showStakeDialog(context, stake, status: widget.transactionStatus!, wallet!),
+                    onTap: () => showStakeDialog(context, ref, stake, widget.vaultsData, status: widget.transactionStatus!, wallet!),
                     child: Container(
                       height: 35.0,
                       width: 35.0,
