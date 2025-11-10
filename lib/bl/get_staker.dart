@@ -72,7 +72,7 @@ Future<List<Staked>> getStaker({required String owner, required List<Vault> vaul
             base58decode(owner),
           ], programId: Ed25519HDPublicKey.fromBase58(TyrbineProgram.programId));
 
-          final getStakerAccount = await solanaClient.rpcClient.getAccountInfo(stakerPDA.toBase58(), encoding: Encoding.jsonParsed);
+          final getStakerAccount = await solanaClient.rpcClient.getAccountInfo(stakerPDA.toBase58(), encoding: Encoding.jsonParsed, commitment: Commitment.processed);
           final staker = StakerPda.fromProgramAccount(getStakerAccount.value!);
 
           const apr = 0.0;
