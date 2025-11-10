@@ -7,6 +7,7 @@ import 'package:tyrbine_website/bl/get_staker.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/service/config.dart';
+import 'package:tyrbine_website/service/helius_api.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';
 
 Future<void> claim(BuildContext context, WidgetRef ref, {required Adapter adapter, required String mint, required ValueNotifier<TxStatus> status, required List<Vault> vaultsData,}) async {
@@ -22,9 +23,9 @@ Future<void> claim(BuildContext context, WidgetRef ref, {required Adapter adapte
   tx.addAll(compiledMessage.toByteArray());
   try {
     final signature = await adapter.signAndSendTransaction(Uint8List.fromList(tx));
-    status.value = TxStatus(status: 'Sending transaction', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
-    await solanaClient.waitForSignatureStatus(signature, status: Commitment.processed, timeout: const Duration(seconds: 30));
-    status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=devnet');
+    status.value = TxStatus(status: 'Sending transaction', signature: 'https://solscan.io/tx/$signature?cluster=${SolanaConfig.cluster}');
+    await HeliusApi.waitingSignatureStatus(signature: signature, expectedStatus: Commitment.processed);
+    status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=${SolanaConfig.cluster}');
     
     final currentStakes = ref.read(stakerNotifierProvider);
     if (currentStakes.value == null || currentStakes.value!.isEmpty) {
