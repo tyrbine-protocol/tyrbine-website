@@ -10,6 +10,7 @@ import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
+import 'package:tyrbine_website/widgets/toggle_button.dart';
 
 void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vault> vaultsData, Adapter adapter, {required ValueNotifier<TxStatus> status, bool? isMob}) {
   Navigator.maybePop(context);
@@ -126,7 +127,9 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         /// +
-                        CustomInkWell(
+                        ToggleButton(
+                          isActive: false,
+                          activeColor: Colors.greenAccent,
                           onTap: () => Navigator.push(
                             context,
                             PageRouteBuilder(
@@ -140,50 +143,21 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                               reverseTransitionDuration: Duration.zero,
                             ),
                           ),
-                          child: Container(
-                            height: 35.0,
-                            width: 50.0,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              '+',
-                              style: TextStyle(color: Colors.grey.shade700),
-                            ),
-                          ),
+                          text: "+",
                         ),
 
                         const SizedBox(width: 16.0),
 
                         /// -
-                        CustomInkWell(
+                        ToggleButton(
+                          isActive: showUnstakeField,
+                          activeColor: Colors.red,
                           onTap: () {
                             setState(() {
                               showUnstakeField = !showUnstakeField;
                             });
                           },
-                          child: Container(
-                            height: 35.0,
-                            width: 50.0,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: showUnstakeField
-                                  ? Colors.red.withOpacity(0.15)
-                                  : Colors.grey.withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              '-',
-                              style: TextStyle(
-                                color: showUnstakeField
-                                    ? Colors.red
-                                    : Colors.grey.shade700,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          text: "-",
                         ),
 
                         const SizedBox(width: 16.0),
@@ -243,18 +217,16 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                                   height: 35.0,
                                   width: 50.0,
                                   alignment: Alignment.center,
-                                  child: const Text('max', style: TextStyle(color: Color(0xFF7637EC)))),
+                                  child: const Text('max', style: TextStyle(color: Colors.grey))),
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                BorderSide(color: Colors.grey.shade800, width: 1.0),
+                            borderSide: BorderSide(color: Colors.grey.shade800, width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                const BorderSide(color: Colors.grey, width: 1.0),
+                            borderSide: BorderSide(color: Colors.grey.shade600, width: 1.0),
                           ),
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 12.0, vertical: 8.0),
