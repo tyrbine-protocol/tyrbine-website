@@ -1,1 +1,0 @@
-const int cumulativeYieldScaleConstant = 1000;
