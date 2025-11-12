@@ -10,4 +10,8 @@ void main() {
     await HeliusApi.waitingSignatureStatus(signature: '31zu31HWTi7bU6ydwNuuuLGBek5gmqaSbUvGNcfNWnRD8rhJ4T6FT3Wcgp4aau8PUeWcR7jivRvFwGdBXTRVCcKH', expectedStatus: Commitment.finalized);
   });
 
+  test('getProgramTransactions24h', () async {
+    await HeliusApi.getProgramTransactions24h();
+  });
+
 }

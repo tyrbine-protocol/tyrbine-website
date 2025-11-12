@@ -4,7 +4,8 @@ class Vault {
   final String mint;
   final String pythOracle;
   final int decimals;
-  final double tvl;
+  final double initialBalance;
+  final double currentBalance;
   final double apy;
 
   Vault(
@@ -13,7 +14,8 @@ class Vault {
       required this.mint,
       required this.pythOracle,
       required this.decimals,
-      required this.tvl,
+      required this.initialBalance,
+      required this.currentBalance,
       required this.apy});
 
   factory Vault.fromJson(Map<String, dynamic> json) {
@@ -23,7 +25,8 @@ class Vault {
       mint: json['mint'], 
       pythOracle: json['pyth_oracle'], 
       decimals: json['decimals'], 
-      tvl: json['tvl'], 
+      initialBalance: json['initial_balance'],
+      currentBalance: json['current_balance'], 
       apy: json['apy'], 
     );
   }

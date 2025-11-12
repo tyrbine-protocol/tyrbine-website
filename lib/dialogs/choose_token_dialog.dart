@@ -95,7 +95,7 @@ void chooseTokenDialog(BuildContext context, WidgetRef ref, List<Vault> vaults, 
                                       ),
                                       Row(
                                         children: [
-                                          Text('TVL: ${vaults[index].tvl} ${vaults[index].symbol}', style: const TextStyle(color: Colors.grey, fontSize: 12.0))
+                                          Text('TVL: ${vaults[index].currentBalance} ${vaults[index].symbol}', style: const TextStyle(color: Colors.grey, fontSize: 12.0))
                                         ],
                                       ),
                                     ],

@@ -13,16 +13,18 @@ final List<Vault> vaultsData = [
       mint: "So11111111111111111111111111111111111111112",
       pythOracle: "7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE",
       decimals: 9,
-      tvl: 974245.54,
-      apy: 21.2),
+      initialBalance: 0.0,
+      currentBalance: 0.0,
+      apy: 0.0),
     Vault(
       symbol: "USDC",
       logoUrl: "https://b344wyhbrdnc7gdusakm3jbzg2nnwsw57uzeedcdlvsaqnxlcjfq.arweave.net/DvnLYOGI2i-YdJAUzaQ5NprbSt39MkIMQ11kCDbrEks",
       mint: "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr", // EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v [mainnet]
       pythOracle: "Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX",
       decimals: 6,
-      tvl: 1014885.54,
-      apy: 13.7),
+      initialBalance: 0.0,
+      currentBalance: 0.0,
+      apy: 0.0),
     // Pool(
     //   symbol: "USDT",
     //   logoUrl: "https://ccdlupml3otto3lav7y5ampaqcwfaxzpmt52vze3xdbe6khkid3q.arweave.net/EIa6PYvbpzdtYK_x0DHggKxQXy9k-6rkm7jCTyjqQPc",

@@ -23,8 +23,9 @@ class StatScreen extends StatelessWidget {
             mint: "So11111111111111111111111111111111111111112",
             pythOracle: "7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE",
             decimals: 9,
-            tvl: 100,
-            apy: 21.2),
+            initialBalance: 0.0,
+            currentBalance: 0.0,
+            apy: 0.0),
         Vault(
             symbol: "USDC",
             logoUrl:
@@ -33,8 +34,9 @@ class StatScreen extends StatelessWidget {
                 "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr", // EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v [mainnet]
             pythOracle: "Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX",
             decimals: 6,
-            tvl: 100,
-            apy: 13.7),
+            initialBalance: 0.0,
+            currentBalance: 0.0,
+            apy: 0.0),
       ]);
 
   @override
@@ -319,7 +321,7 @@ class StatScreen extends StatelessWidget {
                                       const double minHeight =
                                           0.01;
                                       // vlt.currentLiquidity / vlt.initialLiquidity
-                                      final double ratio = (vlt.tvl / 100);
+                                      final double ratio = (vlt.currentBalance / 100);
 
                                       double barHeight = midHeight * ratio;
                                       barHeight = barHeight.clamp(minHeight, maxHeight);

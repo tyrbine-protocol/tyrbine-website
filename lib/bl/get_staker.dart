@@ -86,12 +86,6 @@ Future<List<Staked>> getStaker({required String owner, required List<Vault> vaul
           const int scale = 100000000000;
           num earned;
 
-          // if (uiAmount > 0) {
-            
-          // } else {
-          //   earned = staker.pendingClaim / pow(10, decimals);
-          // }
-
           final yieldPortion = (vault.cumulativeYield - staker.lastCumulativeYield) * uiAmount;
             earned = yieldPortion / scale + (staker.pendingClaim / pow(10, decimals));
 

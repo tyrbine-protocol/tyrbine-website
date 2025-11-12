@@ -4,7 +4,7 @@ import 'package:solana/solana.dart';
 import 'package:tyrbine_website/service/config.dart';
 
 class HeliusApi {
-  // Приоритет статусов для сравнения
+
   static const Map<Commitment, int> _statusPriority = {
     Commitment.processed: 1,
     Commitment.confirmed: 2,
@@ -19,7 +19,7 @@ class HeliusApi {
     duration ??= 30;
     final int maxTimeMillis = duration * 1000;
     int elapsedTime = 0;
-    const int interval = 1000; // проверка каждую секунду
+    const int interval = 1000;
 
     while (elapsedTime < maxTimeMillis) {
       final response = await http.post(
@@ -47,9 +47,8 @@ class HeliusApi {
         final Commitment? currentStatus = _stringToCommitment(statusStr);
 
         if (currentStatus != null) {
-          // Если текущий статус >= ожидаемого — завершаем успешно
           if (_statusPriority[currentStatus]! >= _statusPriority[expectedStatus]!) {
-            return; // транзакция успешна
+            return;
           }
         }
       }
@@ -62,7 +61,6 @@ class HeliusApi {
         "[Helius API] - Transaction did not reach expected status in time");
   }
 
-  // Вспомогательная функция для преобразования строки в Commitment
   static Commitment? _stringToCommitment(String status) {
     switch (status) {
       case 'processed':
@@ -74,5 +72,11 @@ class HeliusApi {
       default:
         return null;
     }
+  }
+
+  static Future getProgramTransactions24h() async {
+    final response = await http.get(Uri.parse('https://devnet.helius-rpc.com/?api-key=7f2a3c15-9d37-4850-a525-2aab028411bf&before=1762958390&after=1762858390'));
+    final jsonDecode = json.decode(response.body);
+    print(jsonDecode);
   }
 }
