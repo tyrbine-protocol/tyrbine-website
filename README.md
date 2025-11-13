@@ -1,3 +1,4 @@
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)
 ![Solana](https://img.shields.io/badge/Blockchain-Solana-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 ![GitHub stars](https://img.shields.io/github/stars/tyrbine-protocol/tyrbine-website?style=social)
