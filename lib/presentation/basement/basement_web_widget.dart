@@ -29,7 +29,7 @@ class BasementWebWidget extends StatelessWidget {
         children: [
           HoverTextButton(
             text: '⩎ How it works?', 
-            onTap: () => js.context.callMethod('open', [litepaperLink])
+            onTap: () => js.context.callMethod('open', [whitepaperLink])
             ),
           const Row(
                 mainAxisAlignment: MainAxisAlignment.end,
