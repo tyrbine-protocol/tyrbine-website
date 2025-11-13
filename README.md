@@ -43,13 +43,10 @@ The Tyrbine App brings the power of the Tyrbine Protocol:
 
 ## 🔍 How It Works
 
-![Workflow Diagram](https://mermaid.ink/svg/pako/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG4gICAgQVtDb25uZWN0IFdhbGxldF0gLS0+IEJbU2VsZWN0IFZhdWx0XVxuICAgIEIgLS0+IEMoRGVwb3NpdCBUb2tlbikgXG4gICAgQyAtLT4gRChFYXJuIEZlZXMpXG4gICAgRCAtLT4gRVtXaXRoZHJhd0Egbnl0aW1lXSIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In19)
-
-
-1. Connect your Solana wallet  
-2. Select the vault you want to participate in  
-3. Deposit your token and start earning fees  
-4. Swap tokens directly in-app, slippage-free  
+1. Go to [tyrbine.com](https://tyrbine.com)
+2. Connect your Solana wallet  
+3. Select the vault you want to participate in  
+4. Deposit your token and start earning fees  
 5. Withdraw whenever you like
 
 ## ❓ FAQ
