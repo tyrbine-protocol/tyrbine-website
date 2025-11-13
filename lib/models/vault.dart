@@ -6,7 +6,7 @@ class Vault {
   final int decimals;
   final double initialBalance;
   final double currentBalance;
-  final double apy;
+  final double apr;
 
   Vault(
       {required this.symbol,
@@ -16,7 +16,7 @@ class Vault {
       required this.decimals,
       required this.initialBalance,
       required this.currentBalance,
-      required this.apy});
+      required this.apr});
 
   factory Vault.fromJson(Map<String, dynamic> json) {
     return Vault(
@@ -27,7 +27,7 @@ class Vault {
       decimals: json['decimals'], 
       initialBalance: json['initial_balance'],
       currentBalance: json['current_balance'], 
-      apy: json['apy'], 
+      apr: json['apy'], 
     );
   }
 }

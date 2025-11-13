@@ -309,7 +309,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                               controller: _stakeAmountController,
                                               onChanged: (value) =>
                                                   calculatingDailyYield(
-                                                      value, vault.apy),
+                                                      value, vault.apr),
                                               keyboardType: TextInputType.number,
                                               inputFormatters: [
                                                 FilteringTextInputFormatter.allow(
@@ -372,7 +372,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                         TextSpan(
                                                           children: [
                                                             TextSpan(
-                                                              text: '+${vault.apy}%',
+                                                              text: '+${vault.apr}%',
                                                               style: const TextStyle(
                                                                 color: Colors
                                                                     .greenAccent,

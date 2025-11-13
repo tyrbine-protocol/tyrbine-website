@@ -15,7 +15,7 @@ final List<Vault> vaultsData = [
       decimals: 9,
       initialBalance: 0.0,
       currentBalance: 0.0,
-      apy: 0.0),
+      apr: 0.0),
     Vault(
       symbol: "USDC",
       logoUrl: "https://b344wyhbrdnc7gdusakm3jbzg2nnwsw57uzeedcdlvsaqnxlcjfq.arweave.net/DvnLYOGI2i-YdJAUzaQ5NprbSt39MkIMQ11kCDbrEks",
@@ -24,7 +24,7 @@ final List<Vault> vaultsData = [
       decimals: 6,
       initialBalance: 0.0,
       currentBalance: 0.0,
-      apy: 0.0),
+      apr: 0.0),
     // Pool(
     //   symbol: "USDT",
     //   logoUrl: "https://ccdlupml3otto3lav7y5ampaqcwfaxzpmt52vze3xdbe6khkid3q.arweave.net/EIa6PYvbpzdtYK_x0DHggKxQXy9k-6rkm7jCTyjqQPc",

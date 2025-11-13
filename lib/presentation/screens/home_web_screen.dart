@@ -75,12 +75,12 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
     }
   }
 
-  void calculatingDailyYield(String value, double apy) {
+  void calculatingDailyYield(String value, double apr) {
     if (value.isEmpty) {
       return;
     }
     final valueNum = num.parse(value);
-    final percent = apy / 100.0 / 365.0;
+    final percent = apr / 100.0 / 365.0;
     setState(() {
       estimatedDailyAmount = (valueNum * percent).smartSignificantRound();
     });
@@ -220,7 +220,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                             controller: _stakeAmountController,
                                             onChanged: (value) =>
                                                 calculatingDailyYield(
-                                                    value, vault.apy),
+                                                    value, vault.apr),
                                             keyboardType: TextInputType.number,
                                             inputFormatters: [
                                               FilteringTextInputFormatter.allow(
@@ -283,7 +283,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                       TextSpan(
                                                         children: [
                                                           TextSpan(
-                                                            text: '+${vault.apy}%',
+                                                            text: '+${vault.apr}%',
                                                             style: const TextStyle(
                                                               color: Colors
                                                                   .greenAccent,
@@ -291,7 +291,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                             ),
                                                           ),
                                                           const TextSpan(
-                                                            text: '  annual ',
+                                                            text: '  24h ',
                                                             style: TextStyle(
                                                               color:
                                                                   Color(0xFF5F5B5B),

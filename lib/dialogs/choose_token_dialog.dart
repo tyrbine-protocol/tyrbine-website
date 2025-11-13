@@ -104,8 +104,8 @@ void chooseTokenDialog(BuildContext context, WidgetRef ref, List<Vault> vaults, 
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text('${vaults[index].apy}%', style: const TextStyle(color: Colors.greenAccent)),
-                                      const Text('APY', style: TextStyle(color: Colors.grey, fontSize: 12.0))
+                                      Text('${vaults[index].apr}%', style: const TextStyle(color: Colors.greenAccent)),
+                                      const Text('APR', style: TextStyle(color: Colors.grey, fontSize: 12.0))
                                     ],
                                   )
                                 ],

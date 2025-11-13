@@ -25,7 +25,7 @@ class StatScreen extends StatelessWidget {
             decimals: 9,
             initialBalance: 0.0,
             currentBalance: 0.0,
-            apy: 0.0),
+            apr: 0.0),
         Vault(
             symbol: "USDC",
             logoUrl:
@@ -36,7 +36,7 @@ class StatScreen extends StatelessWidget {
             decimals: 6,
             initialBalance: 0.0,
             currentBalance: 0.0,
-            apy: 0.0),
+            apr: 0.0),
       ]);
 
   @override

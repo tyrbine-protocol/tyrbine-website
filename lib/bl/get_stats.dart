@@ -27,7 +27,7 @@ Future<Stats> getStats() async {
           decimals: 9,
           initialBalance: 0,
           currentBalance: 0,
-          apy: 0.0),
+          apr: 0.0),
         Vault(
           symbol: "USDC",
           logoUrl: "https://b344wyhbrdnc7gdusakm3jbzg2nnwsw57uzeedcdlvsaqnxlcjfq.arweave.net/DvnLYOGI2i-YdJAUzaQ5NprbSt39MkIMQ11kCDbrEks",
@@ -36,7 +36,7 @@ Future<Stats> getStats() async {
           decimals: 6,
           initialBalance: 0,
           currentBalance: 0,
-          apy: 0.0),
+          apr: 0.0),
         ]);
     }
 }
