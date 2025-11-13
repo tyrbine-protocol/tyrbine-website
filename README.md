@@ -3,20 +3,19 @@
 ![GitHub stars](https://img.shields.io/github/stars/tyrbine-protocol/tyrbine-website?style=social)
 
 
-# ⚡ Tyrbine App
+# ⚡ Tyrbine Dapp
 **Flutter/Dart Web App for Tyrbine Protocol**  
-Deposit, swap, and manage your single-sided liquidity on Solana — directly from your mobile device.  
+Deposit and manage your single-sided liquidity on Solana.  
 
 ---
 
 ## 🌟 Why Tyrbine App?
 
-The Tyrbine App brings the power of the Tyrbine Protocol to your phone:  
+The Tyrbine App brings the power of the Tyrbine Protocol:  
 
 - Single-sided liquidity deposits ✅  
 - Earn trading fees **without impermanent loss** 💸  
 - Monitor your vaults in real-time 📈  
-- Slippage-free swaps powered by Pyth oracles 🔄  
 
 > Manage your liquidity flow anytime, anywhere.
 
@@ -38,19 +37,14 @@ The Tyrbine App brings the power of the Tyrbine Protocol to your phone:
 
 ### 4️⃣ Vault Management
 - Monitor vault balances  
-- Track your earned fees  
-- Receive notifications for significant changes  
+- Track your earned fees
 
 ---
 
 ## 🔍 How It Works
 
-```mermaid
-flowchart LR
-    A[Connect Wallet] --> B[Select Vault]
-    B --> C[Deposit Token]
-    C --> D[Earn Fees]
-    D --> E[Withdraw Anytime]
+![Workflow Diagram](https://mermaid.ink/svg/pako/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG4gICAgQVtDb25uZWN0IFdhbGxldF0gLS0+IEJbU2VsZWN0IFZhdWx0XVxuICAgIEIgLS0+IEMoRGVwb3NpdCBUb2tlbikgXG4gICAgQyAtLT4gRChFYXJuIEZlZXMpXG4gICAgRCAtLT4gRVtXaXRoZHJhd0Egbnl0aW1lXSIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In19)
+
 
 1. Connect your Solana wallet  
 2. Select the vault you want to participate in  
