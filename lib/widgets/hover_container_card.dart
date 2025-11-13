@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
@@ -23,7 +22,7 @@ class HoverContainerCardState extends State<HoverContainerCard> {
       onEnter: (_) => setState(() => isHovered = true),
       onExit: (_) => setState(() => isHovered = false),
       child: CustomInkWell(
-        onTap: () => context.go('/stat'),
+        onTap: () {},
         child: Container(
           width: 400.0,
           padding: const EdgeInsets.all(16.0),
