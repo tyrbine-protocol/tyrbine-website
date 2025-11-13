@@ -31,13 +31,9 @@ The Tyrbine App brings the power of the Tyrbine Protocol:
 - Deposit a single asset into any vault  
 - Withdraw instantly while earning fees  
 
-### 3️⃣ Swap Tokens
-- Slippage-free swaps powered by **Pyth price oracles**  
-- Transparent pricing with no hidden costs  
-
-### 4️⃣ Vault Management
+### 3️⃣ Vault Management
 - Monitor vault balances  
-- Track your earned fees
+- Track your earned fees 
 
 ---
 
