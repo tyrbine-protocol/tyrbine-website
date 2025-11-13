@@ -46,9 +46,15 @@ class StatScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          Container(
+            height: 60.0,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+            child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 280.0, vertical: 16.0),
+                const EdgeInsets.symmetric(horizontal: 280.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,6 +67,7 @@ class StatScreen extends StatelessWidget {
                 )
               ],
             ),
+          ),
           ),
           Center(
             child: Column(
