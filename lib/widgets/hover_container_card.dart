@@ -59,7 +59,7 @@ class HoverContainerCardState extends State<HoverContainerCard> {
                               width: 15.0,
                             ),
                             const SizedBox(width: 8.0),
-                            Text('${widget.stat.dailyChangeTvlPercent}%',
+                            Text('${widget.stat.dailyChangeTvlPercent?.formatNumber()}%',
                                 style: const TextStyle(
                                     color: Color(0xFF5F5B5B), fontSize: 14.0)),
                             const SizedBox(width: 8.0),

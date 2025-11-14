@@ -9,4 +9,8 @@ void main() {
     expect(number, equals(0.0000014));
   });
 
+  test('format number', () {
+    print(12142.formatNumber());
+  });
+
 }
