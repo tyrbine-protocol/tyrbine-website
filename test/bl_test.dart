@@ -38,6 +38,8 @@ final List<Vault> vaultsData = [
   test('get stat', () async {
     final Stats stats = await getStats();
     print(stats.usdTvl24hAgo);
+    print(stats.dailyChangeTvlAmount);
+    print(stats.dailyChangeTvlPercent);
 });
   
   test('get staker', () async {
