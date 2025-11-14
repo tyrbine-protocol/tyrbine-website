@@ -159,7 +159,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                 style: TextStyle(
                                                     color: Color(0xFF5F5B5B))),
                                             Text(
-                                                '\$${stat.totalTvl.formatNumWithCommas()}',
+                                                '\$${stat.usdTvl24hAgo.formatNumWithCommas()}',
                                                 style:
                                                     const TextStyle(fontSize: 26.0)),
                                           ],
@@ -190,7 +190,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Image.asset(
-                                              stat.dailyChangeTvlAmount >= 0
+                                              stat.dailyChangeTvlAmount! >= 0
                                                   ? 'assets/icons/arrow_up.png'
                                                   : 'assets/icons/arrow_down.png',
                                               height: 15.0,
@@ -207,12 +207,12 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                   fontSize: 14.0)),
                                           const SizedBox(width: 8.0),
                                           Text(
-                                              stat.dailyChangeTvlAmount >= 0
-                                                  ? '+\$${stat.dailyChangeTvlAmount.formatNumWithCommas()}'
-                                                  : '-\$${stat.dailyChangeTvlAmount.abs().formatNumWithCommas()}',
+                                              stat.dailyChangeTvlAmount! >= 0
+                                                  ? '+\$${stat.dailyChangeTvlAmount?.formatNumWithCommas()}'
+                                                  : '-\$${stat.dailyChangeTvlAmount?.abs().formatNumWithCommas()}',
                                               style: TextStyle(
                                                   color:
-                                                      stat.dailyChangeTvlAmount >= 0
+                                                      stat.dailyChangeTvlAmount! >= 0
                                                           ? Colors.greenAccent
                                                           : Colors.red,
                                                   fontSize: 14.0)),

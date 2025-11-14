@@ -12,7 +12,7 @@ class StatScreen extends StatelessWidget {
   StatScreen({super.key});
 
   final Stats stat = Stats(
-      totalTvl: 0,
+      usdTvl24hAgo: 0,
       dailyChangeTvlAmount: 0,
       dailyChangeTvlPercent: 0,
       vaults: [
@@ -101,7 +101,7 @@ class StatScreen extends StatelessWidget {
                                       style:
                                           TextStyle(color: Color(0xFF5F5B5B))),
                                   Text(
-                                      '\$${stat.totalTvl.formatNumWithCommas()}',
+                                      '\$${stat.usdTvl24hAgo.formatNumWithCommas()}',
                                       style: const TextStyle(fontSize: 26.0)),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
@@ -109,7 +109,7 @@ class StatScreen extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Image.asset(
-                                            stat.dailyChangeTvlAmount >= 0
+                                            stat.dailyChangeTvlAmount! >= 0
                                                 ? 'assets/icons/arrow_up.png'
                                                 : 'assets/icons/arrow_down.png',
                                             height: 15.0,
@@ -126,12 +126,12 @@ class StatScreen extends StatelessWidget {
                                                 fontSize: 14.0)),
                                         const SizedBox(width: 8.0),
                                         Text(
-                                            stat.dailyChangeTvlAmount >= 0
-                                                ? '+\$${stat.dailyChangeTvlAmount.formatNumWithCommas()}'
-                                                : '-\$${stat.dailyChangeTvlAmount.abs().formatNumWithCommas()}',
+                                            stat.dailyChangeTvlAmount! >= 0
+                                                ? '+\$${stat.dailyChangeTvlAmount?.formatNumWithCommas()}'
+                                                : '-\$${stat.dailyChangeTvlAmount?.abs().formatNumWithCommas()}',
                                             style: TextStyle(
                                                 color:
-                                                    stat.dailyChangeTvlAmount >=
+                                                    stat.dailyChangeTvlAmount! >=
                                                             0
                                                         ? Colors.greenAccent
                                                         : Colors.red,
@@ -188,7 +188,7 @@ class StatScreen extends StatelessWidget {
                                       style:
                                           TextStyle(color: Color(0xFF5F5B5B))),
                                   Text(
-                                      '\$${stat.totalTvl.formatNumWithCommas()}',
+                                      '\$${stat.usdTvl24hAgo.formatNumWithCommas()}',
                                       style: const TextStyle(fontSize: 26.0)),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
@@ -196,7 +196,7 @@ class StatScreen extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Image.asset(
-                                            stat.dailyChangeTvlAmount >= 0
+                                            stat.dailyChangeTvlAmount! >= 0
                                                 ? 'assets/icons/arrow_up.png'
                                                 : 'assets/icons/arrow_down.png',
                                             height: 15.0,
@@ -213,12 +213,12 @@ class StatScreen extends StatelessWidget {
                                                 fontSize: 14.0)),
                                         const SizedBox(width: 8.0),
                                         Text(
-                                            stat.dailyChangeTvlAmount >= 0
-                                                ? '+\$${stat.dailyChangeTvlAmount.formatNumWithCommas()}'
-                                                : '-\$${stat.dailyChangeTvlAmount.abs().formatNumWithCommas()}',
+                                            stat.dailyChangeTvlAmount! >= 0
+                                                ? '+\$${stat.dailyChangeTvlAmount?.formatNumWithCommas()}'
+                                                : '-\$${stat.dailyChangeTvlAmount?.abs().formatNumWithCommas()}',
                                             style: TextStyle(
                                                 color:
-                                                    stat.dailyChangeTvlAmount >=
+                                                    stat.dailyChangeTvlAmount! >=
                                                             0
                                                         ? Colors.greenAccent
                                                         : Colors.red,
@@ -395,7 +395,7 @@ class StatScreen extends StatelessWidget {
                                       style:
                                           TextStyle(color: Color(0xFF5F5B5B))),
                                   Text(
-                                      '\$${stat.totalTvl.formatNumWithCommas()}',
+                                      '\$${stat.usdTvl24hAgo.formatNumWithCommas()}',
                                       style: const TextStyle(fontSize: 26.0)),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
@@ -403,7 +403,7 @@ class StatScreen extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Image.asset(
-                                            stat.dailyChangeTvlAmount >= 0
+                                            stat.dailyChangeTvlAmount! >= 0
                                                 ? 'assets/icons/arrow_up.png'
                                                 : 'assets/icons/arrow_down.png',
                                             height: 15.0,
@@ -420,12 +420,12 @@ class StatScreen extends StatelessWidget {
                                                 fontSize: 14.0)),
                                         const SizedBox(width: 8.0),
                                         Text(
-                                            stat.dailyChangeTvlAmount >= 0
-                                                ? '+\$${stat.dailyChangeTvlAmount.formatNumWithCommas()}'
-                                                : '-\$${stat.dailyChangeTvlAmount.abs().formatNumWithCommas()}',
+                                            stat.dailyChangeTvlAmount! >= 0
+                                                ? '+\$${stat.dailyChangeTvlAmount?.formatNumWithCommas()}'
+                                                : '-\$${stat.dailyChangeTvlAmount?.abs().formatNumWithCommas()}',
                                             style: TextStyle(
                                                 color:
-                                                    stat.dailyChangeTvlAmount >=
+                                                    stat.dailyChangeTvlAmount! >=
                                                             0
                                                         ? Colors.greenAccent
                                                         : Colors.red,
@@ -484,7 +484,7 @@ class StatScreen extends StatelessWidget {
                                       style:
                                           TextStyle(color: Color(0xFF5F5B5B))),
                                   Text(
-                                      '\$${stat.totalTvl.formatNumWithCommas()}',
+                                      '\$${stat.usdTvl24hAgo.formatNumWithCommas()}',
                                       style: const TextStyle(fontSize: 26.0)),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
@@ -492,7 +492,7 @@ class StatScreen extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Image.asset(
-                                            stat.dailyChangeTvlAmount >= 0
+                                            stat.dailyChangeTvlAmount! >= 0
                                                 ? 'assets/icons/arrow_up.png'
                                                 : 'assets/icons/arrow_down.png',
                                             height: 15.0,
@@ -509,12 +509,12 @@ class StatScreen extends StatelessWidget {
                                                 fontSize: 14.0)),
                                         const SizedBox(width: 8.0),
                                         Text(
-                                            stat.dailyChangeTvlAmount >= 0
-                                                ? '+\$${stat.dailyChangeTvlAmount.formatNumWithCommas()}'
-                                                : '-\$${stat.dailyChangeTvlAmount.abs().formatNumWithCommas()}',
+                                            stat.dailyChangeTvlAmount! >= 0
+                                                ? '+\$${stat.dailyChangeTvlAmount?.formatNumWithCommas()}'
+                                                : '-\$${stat.dailyChangeTvlAmount?.abs().formatNumWithCommas()}',
                                             style: TextStyle(
                                                 color:
-                                                    stat.dailyChangeTvlAmount >=
+                                                    stat.dailyChangeTvlAmount! >=
                                                             0
                                                         ? Colors.greenAccent
                                                         : Colors.red,

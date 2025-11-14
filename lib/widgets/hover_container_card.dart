@@ -44,7 +44,7 @@ class HoverContainerCardState extends State<HoverContainerCard> {
                     children: [
                       const Text('Total Value Locked',
                           style: TextStyle(color: Color(0xFF5F5B5B))),
-                      Text('\$${widget.stat.totalTvl.formatNumWithCommas()}',
+                      Text('\$${widget.stat.usdTvl24hAgo.formatNumWithCommas()}',
                           style: const TextStyle(fontSize: 26.0)),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
@@ -52,7 +52,7 @@ class HoverContainerCardState extends State<HoverContainerCard> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Image.asset(
-                              widget.stat.dailyChangeTvlAmount >= 0
+                              widget.stat.dailyChangeTvlAmount! >= 0
                                   ? 'assets/icons/arrow_up.png'
                                   : 'assets/icons/arrow_down.png',
                               height: 15.0,
@@ -68,11 +68,11 @@ class HoverContainerCardState extends State<HoverContainerCard> {
                                     color: Color(0xFF5F5B5B), fontSize: 14.0)),
                             const SizedBox(width: 8.0),
                             Text(
-                                widget.stat.dailyChangeTvlAmount >= 0
-                                    ? '+\$${widget.stat.dailyChangeTvlAmount.formatNumWithCommas()}'
-                                    : '-\$${widget.stat.dailyChangeTvlAmount.abs().formatNumWithCommas()}',
+                                widget.stat.dailyChangeTvlAmount! >= 0
+                                    ? '+\$${widget.stat.dailyChangeTvlAmount?.formatNumWithCommas()}'
+                                    : '-\$${widget.stat.dailyChangeTvlAmount?.abs().formatNumWithCommas()}',
                                 style: TextStyle(
-                                    color: widget.stat.dailyChangeTvlAmount >= 0
+                                    color: widget.stat.dailyChangeTvlAmount! >= 0
                                         ? Colors.greenAccent
                                         : Colors.red,
                                     fontSize: 14.0)),
