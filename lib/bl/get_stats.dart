@@ -16,20 +16,20 @@ Future<Stats> getStats() async {
     try {
       final response = await http.get(Uri.parse('http://localhost:8080/stat'));
       final Map<String, dynamic> jsonDecode = json.decode(response.body);
-      Stats stats = Stats.fromJson(jsonDecode);
+      Stats stat = Stats.fromJson(jsonDecode);
 
       var treasury = await Ed25519HDPublicKey.findProgramAddress(seeds: [
         "tyrbine-seed".codeUnits,
         "treasury-seed".codeUnits,
       ], programId: Ed25519HDPublicKey.fromBase58(TyrbineProgram.programId));
 
-      final usdTvl = await CustomApi.getTreasuryBalance(treasuryAddress: treasury.toBase58(), mints: stats.vaults.map((vlt) => vlt.mint).toList());
-      stats.dailyChangeTvlAmount = (usdTvl - stats.usdTvl24hAgo).trimTo(2);
-      stats.dailyChangeTvlPercent = ((stats.dailyChangeTvlAmount! / stats.usdTvl24hAgo) * 100).trimTo(2);
+      final usdTvl = await CustomApi.getTreasuryBalance(treasuryAddress: treasury.toBase58(), mints: stat.vaults.isNotEmpty ? stat.vaults.map((vlt) => vlt.mint).toList() : vaultsData.map((vlt) => vlt.mint).toList());
+      stat.dailyChangeTvlAmount = (usdTvl - stat.usdTvl24hAgo).trimTo(2);
+      stat.dailyChangeTvlPercent = ((stat.dailyChangeTvlAmount! / stat.usdTvl24hAgo) * 100).trimTo(2);
       
-      if (stats.vaults.isEmpty) stats.vaults = vaultsData;
+      if (stat.vaults.isEmpty) stat.vaults = vaultsData;
 
-      return stats;
+      return stat;
     } catch (e) {
       return Stats(
         usdTvl24hAgo: 0, 
