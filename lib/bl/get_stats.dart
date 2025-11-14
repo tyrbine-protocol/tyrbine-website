@@ -24,6 +24,7 @@ Future<Stats> getStats() async {
       ], programId: Ed25519HDPublicKey.fromBase58(TyrbineProgram.programId));
 
       final usdTvl = await CustomApi.getTreasuryBalance(treasuryAddress: treasury.toBase58(), mints: stat.vaults.isNotEmpty ? stat.vaults.map((vlt) => vlt.mint).toList() : vaultsData.map((vlt) => vlt.mint).toList());
+      stat.usdTvl = usdTvl;
       stat.dailyChangeTvlAmount = (usdTvl - stat.usdTvl24hAgo).trimTo(2);
       stat.dailyChangeTvlPercent = ((stat.dailyChangeTvlAmount! / stat.usdTvl24hAgo) * 100).trimTo(2);
       

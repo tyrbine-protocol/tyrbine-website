@@ -40,7 +40,7 @@ num smartSignificantRound() {
 }
 
 
-  String formatNumWithCommas() {
+String formatNumWithCommas() {
     toString().contains('.')
         ? toString().replaceAll(RegExp(r'0*$'), '')
         : toString();

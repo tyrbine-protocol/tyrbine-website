@@ -44,7 +44,7 @@ class HoverContainerCardState extends State<HoverContainerCard> {
                     children: [
                       const Text('Total Value Locked',
                           style: TextStyle(color: Color(0xFF5F5B5B))),
-                      Text('\$${widget.stat.usdTvl24hAgo.formatNumWithCommas()}',
+                      Text('\$${widget.stat.usdTvl?.formatNumWithCommas()}',
                           style: const TextStyle(fontSize: 26.0)),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),

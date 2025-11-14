@@ -1,12 +1,13 @@
 import 'package:tyrbine_website/models/vault.dart';
 
 class Stats {
+  num? usdTvl;
   final double usdTvl24hAgo;
   num? dailyChangeTvlAmount;
   num? dailyChangeTvlPercent;
   List<Vault> vaults;
 
-  Stats({required this.usdTvl24hAgo, this.dailyChangeTvlAmount, this.dailyChangeTvlPercent, required this.vaults}) {
+  Stats({this.usdTvl, required this.usdTvl24hAgo, this.dailyChangeTvlAmount, this.dailyChangeTvlPercent, required this.vaults}) {
     dailyChangeTvlAmount ??= 0;
     dailyChangeTvlPercent ??= 0;
   }
