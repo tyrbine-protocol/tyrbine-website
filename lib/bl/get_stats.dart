@@ -13,7 +13,7 @@ final statsProvider = FutureProvider<Stats>((ref) async {
 
 Future<Stats> getStats() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:8080/stats'));
+      final response = await http.get(Uri.parse('http://localhost:8080/stat'));
       final Map<String, dynamic> jsonDecode = json.decode(response.body);
       Stats stats = Stats.fromJson(jsonDecode);
 

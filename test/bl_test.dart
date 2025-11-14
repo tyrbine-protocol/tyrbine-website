@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tyrbine_website/bl/get_staker.dart';
+import 'package:tyrbine_website/bl/get_stats.dart';
 import 'package:tyrbine_website/models/staked.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/models/vault.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 
@@ -32,6 +34,11 @@ final List<Vault> vaultsData = [
     //   pythOracle: "Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX",
     //   decimals: 6),
 ];
+
+  test('get stat', () async {
+    final Stats stats = await getStats();
+    print(stats.usdTvl24hAgo);
+});
   
   test('get staker', () async {
     final List<Staked> staked = await getStaker(owner: 'Cy89hxcHCuZhyR8Hjc5AZVcsiNXtFXynf4wDHSi7QsTC', vaultsData: vaultsData);

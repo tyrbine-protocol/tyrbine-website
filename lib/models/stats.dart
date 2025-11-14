@@ -6,7 +6,7 @@ class Stats {
   num? dailyChangeTvlPercent;
   List<Vault> vaults;
 
-  Stats({required this.usdTvl24hAgo, required this.dailyChangeTvlAmount, required this.dailyChangeTvlPercent, required this.vaults}) {
+  Stats({required this.usdTvl24hAgo, this.dailyChangeTvlAmount, this.dailyChangeTvlPercent, required this.vaults}) {
     dailyChangeTvlAmount ??= 0;
     dailyChangeTvlPercent ??= 0;
   }
@@ -15,8 +15,6 @@ class Stats {
     final vaultsList = json['vaults'] as List;
     return Stats(
       usdTvl24hAgo: json['usdTvl24hAgo'], 
-      dailyChangeTvlAmount: json['daily_change_tvl_amount'], 
-      dailyChangeTvlPercent: json['daily_change_tvl_percent'], 
       vaults: vaultsList.map((value) => Vault.fromJson(value)).toList()
     );
   }
