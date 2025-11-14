@@ -33,6 +33,7 @@ Future<Stats> getStats() async {
       return stat;
     } catch (e) {
       return Stats(
+        usdTvl: 0,
         usdTvl24hAgo: 0, 
         dailyChangeTvlAmount: 0,
         dailyChangeTvlPercent: 0,
