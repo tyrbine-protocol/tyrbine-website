@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 
 Future<void> main() async {
-
+  final logger = Logger();
   final result = await Process.run(
     'git',
     ['rev-parse', '--short', 'HEAD'],
@@ -10,12 +10,13 @@ Future<void> main() async {
   );
 
   if (result.exitCode != 0) {
-    debugPrint('❌ Error getting git commit: ${result.stderr}');
+    // ignore: avoid_print
+    logger.e('❌ Error getting git commit: ${result.stderr}');
     exit(1);
   }
 
   final gitCommit = (result.stdout as String).trim();
-  debugPrint('🌀 Current git commit: $gitCommit');
+  logger.i('🌀 Current git commit: $gitCommit');
 
   final file = File('lib/build_version.dart');
   final content = '''
@@ -24,7 +25,7 @@ const String buildVersion = '$gitCommit';
 ''';
 
   await file.writeAsString(content, flush: true);
-  debugPrint('✅ Wrote lib/build_version.dart');
+  logger.i('✅ Wrote lib/build_version.dart');
 
   final process = await Process.start(
     'flutter',
@@ -50,7 +51,7 @@ const String buildVersion = '$gitCommit';
   );
 
   await indexFile.writeAsString(html);
-  debugPrint('🔄 index.html updated with version: $gitCommit');
+  logger.i('🔄 index.html updated with version: $gitCommit');
 
-  debugPrint('🚀 Flutter web build complete.');
+  logger.i('🚀 Flutter web build complete.');
 }

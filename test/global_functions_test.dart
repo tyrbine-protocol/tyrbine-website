@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 
@@ -10,7 +11,7 @@ void main() {
   });
 
   test('format number', () {
-    print(12142.formatNumber());
+    debugPrint(12142.formatNumber());
   });
 
 }

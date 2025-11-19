@@ -1,11 +1,11 @@
 import 'package:adaptive_screen_flutter/adaptive_screen_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/theme/theme.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:tyrbine_website/widgets/no_thumb_scroll_behavior.dart';
 
 final GoRouter _router = GoRouter(
