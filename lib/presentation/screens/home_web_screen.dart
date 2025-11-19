@@ -9,14 +9,14 @@ import 'package:tyrbine_website/bl/get_stats.dart';
 import 'package:tyrbine_website/bl/staking.dart';
 import 'package:tyrbine_website/dialogs/choose_token_dialog.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/presentation/bars/top_web_bar.dart';
 import 'package:tyrbine_website/presentation/basement/basement_web_widget.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 import 'package:tyrbine_website/widgets/stars_progress_indicator.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 import 'package:tyrbine_website/widgets/stakes_list.dart';
-import 'package:tyrbine_website/widgets/hover_container_card.dart';
+import 'package:tyrbine_website/widgets/stats_container_card.dart';
 
 
 class HomeWebScreen extends ConsumerStatefulWidget {
@@ -75,7 +75,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
     }
   }
 
-  void calculatingDailyYield(String value, double apr) {
+  void calculatingDailyYield(String value, num apr) {
     if (value.isEmpty) {
       return;
     }
@@ -115,7 +115,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
     return Scaffold(
       body: vaultsAsync.when(
       data: (stat) {
-        Vault vault = stat.vaults.where((v) => v.mint == widget.vaultMint).first;
+        Vault vault = stat!.vaults.where((v) => v.mint == widget.vaultMint).first;
         return Stack(
           children: [
             NotificationListener<ScrollNotification>(
@@ -137,7 +137,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            HoverContainerCard(stat: stat),
+                            StatsContainerCard(stat: stat),
                             const SizedBox(height: 16.0),
                             SvgPicture.asset("assets/icons/stars.svg",
                                 height: 12.0),

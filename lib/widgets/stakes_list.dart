@@ -4,7 +4,7 @@ import 'package:tyrbine_website/adapter/wallet_notifier.dart';
 import 'package:tyrbine_website/dialogs/stake_dialog.dart';
 import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
 
 class StakesList extends ConsumerStatefulWidget {

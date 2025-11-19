@@ -19,8 +19,8 @@ void showWalletDialog(BuildContext context, WidgetRef ref) {
         builder: (context, setState) {
           return Dialog(
             child: Container(
-              height: 370.0,
-              width: 300.0,
+              height: 330.0,
+              width: 290.0,
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border.all(

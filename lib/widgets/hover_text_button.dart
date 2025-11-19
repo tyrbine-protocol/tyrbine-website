@@ -31,6 +31,7 @@ class HoverTextButtonState extends State<HoverTextButton> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(widget.text),
               if (widget.subText != null)

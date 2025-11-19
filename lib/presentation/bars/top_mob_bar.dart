@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tyrbine_website/adapter/wallet_notifier.dart';
 import 'package:tyrbine_website/dialogs/wallet_dialog.dart';
-import 'package:tyrbine_website/l10n/app_localizations.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 import 'package:tyrbine_website/widgets/custom_button.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
@@ -28,25 +27,9 @@ class _TopMobBarState extends ConsumerState<TopMobBar> {
     final wallet = ref.watch(walletProvider);
     final walletNotifier = ref.read(walletProvider.notifier);
     final isConnected = wallet?.pubkey != null;
-    final loc = AppLocalizations.of(context)!;
 
     return Column(
       children: [
-        Container(
-          height: 25.0,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          color: const Color(0xFF7637EC),
-          alignment: Alignment.center,
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.campaign, color: Color(0xFFBE9EFB)),
-              SizedBox(width: 16.0),
-              Text('Tyrbine has been launched on Solana Devnet', style: TextStyle(fontSize: 14.0, color: Color(0xFFBE9EFB))),
-            ],
-          ),
-        ),
         Container(
           height: 60.0,
           width: MediaQuery.of(context).size.width,
@@ -93,7 +76,7 @@ class _TopMobBarState extends ConsumerState<TopMobBar> {
                     : CustomButton(
                         height: 30.0,
                         width: 120.0,
-                        title: loc.connect,
+                        title: "Connect",
                         iconData: Icons.power,
                         onTap: () => showWalletDialog(context, ref),
                       )

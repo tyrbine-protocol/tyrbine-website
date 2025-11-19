@@ -6,7 +6,7 @@ import 'package:solana/solana.dart';
 import 'package:tyrbine_website/adapter/adapter.dart';
 import 'package:tyrbine_website/bl/get_staker.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/service/helius_api.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';

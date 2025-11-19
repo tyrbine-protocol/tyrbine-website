@@ -6,7 +6,7 @@ import 'package:tyrbine_website/bl/claim.dart';
 import 'package:tyrbine_website/bl/unstaking.dart';
 import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';

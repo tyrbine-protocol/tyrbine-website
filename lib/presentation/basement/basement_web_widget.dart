@@ -27,10 +27,14 @@ class BasementWebWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          HoverTextButton(
-            text: '⩎ How it works?', 
-            onTap: () => js.context.callMethod('open', [whitepaperLink])
-            ),
+          Container(
+            width: 120.0,
+            alignment: Alignment.centerLeft,
+            child: HoverTextButton(
+              text: '⩎ How it works?', 
+              onTap: () => js.context.callMethod('open', [whitepaperLink])
+              ),
+          ),
           const Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,14 +59,18 @@ class BasementWebWidget extends StatelessWidget {
                   SizedBox(width: 24.0),
                   SocialIconButton(
                     assetPath: "assets/icons/github_icon.svg",
-                    url: githubLink,
+                    url: repGithubLink,
                     height: 14.0,
                   ),
                 ],
               ),
-              HoverTextButton(text: "v. $buildVersion",
-                subText: "⊣",
-                onTap: () => js.context.callMethod('open', [webGithubLink])),
+              Container(
+                width: 120.0,
+                alignment: Alignment.centerRight,
+                child: HoverTextButton(text: "v. $buildVersion",
+                  subText: "⊣",
+                  onTap: () => js.context.callMethod('open', [webGithubLink])),
+              ),
         ],
       ),
     );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tyrbine_website/adapter/wallet_notifier.dart';
 import 'package:tyrbine_website/dialogs/wallet_dialog.dart';
-import 'package:tyrbine_website/l10n/app_localizations.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 import 'package:tyrbine_website/widgets/custom_button.dart';
@@ -55,7 +54,6 @@ class _TopWebBarState extends ConsumerState<TopWebBar>
     final wallet = ref.watch(walletProvider);
     final walletNotifier = ref.read(walletProvider.notifier);
     final isConnected = wallet?.pubkey != null;
-    final loc = AppLocalizations.of(context)!;
 
     return ValueListenableBuilder<TxStatus>(
       valueListenable: widget.transactionStatus ?? ValueNotifier(TxStatus(status: '')),
@@ -217,7 +215,7 @@ class _TopWebBarState extends ConsumerState<TopWebBar>
                               ),
                             )
                           : CustomButton(
-                              title: loc.connect,
+                              title: "Connect",
                               iconData: Icons.power,
                               onTap: () => showWalletDialog(context, ref),
                             ),

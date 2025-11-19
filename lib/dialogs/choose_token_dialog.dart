@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
@@ -95,7 +95,7 @@ void chooseTokenDialog(BuildContext context, WidgetRef ref, List<Vault> vaults, 
                                       ),
                                       Row(
                                         children: [
-                                          Text('TVL: ${vaults[index].currentBalance} ${vaults[index].symbol}', style: const TextStyle(color: Colors.grey, fontSize: 12.0))
+                                          Text('TVL: ${vaults[index].tvl} ${vaults[index].symbol}', style: const TextStyle(color: Colors.grey, fontSize: 12.0))
                                         ],
                                       ),
                                     ],

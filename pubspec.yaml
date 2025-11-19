@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
+  # flutter_localizations:
+  #   sdk: flutter
   flutter_riverpod: ^2.6.1
   url_launcher: ^6.3.0
   js: ^0.6.5

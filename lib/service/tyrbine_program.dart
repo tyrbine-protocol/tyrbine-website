@@ -4,11 +4,10 @@ import 'package:solana/base58.dart';
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';
 import 'package:tyrbine_website/models/staked.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/service/config.dart';
 
 class TyrbineProgram {
-  
   static const String programId = "5EfEyaViE5MGrJWoZDFkhWgydwwt4tUQkoPyAEfK5ReV";
 
   static Future<Message> staking(
@@ -62,7 +61,9 @@ class TyrbineProgram {
       final getWsolATA = await solanaClient.getAssociatedTokenAccount(
           owner: Ed25519HDPublicKey.fromBase58(signer),
           mint: Ed25519HDPublicKey.fromBase58(vault.mint));
-      final lamports = await solanaClient.rpcClient.getMinimumBalanceForRentExemption(165) + amount;
+      final lamports =
+          await solanaClient.rpcClient.getMinimumBalanceForRentExemption(165) +
+              amount;
       if (getWsolATA == null) {
         final findATA = await findAssociatedTokenAddress(
             owner: Ed25519HDPublicKey.fromBase58(signer),
@@ -286,8 +287,7 @@ class TyrbineProgram {
           AccountMeta.writeable(
               pubKey: Ed25519HDPublicKey.fromBase58(signer), isSigner: true),
           AccountMeta.writeable(
-              pubKey: Ed25519HDPublicKey.fromBase58(mint),
-              isSigner: false),
+              pubKey: Ed25519HDPublicKey.fromBase58(mint), isSigner: false),
           AccountMeta.writeable(pubKey: lpMint, isSigner: false),
           AccountMeta.writeable(pubKey: signerLpATA, isSigner: false),
           AccountMeta.writeable(pubKey: signerATA, isSigner: false),

@@ -5,7 +5,7 @@ final lightTheme = ThemeData(
     surfaceTintColor: Colors.white,
     titleTextStyle: const TextStyle(
       fontSize: 18.0,
-      color: Colors.white,  // белый цвет
+      color: Colors.white,
       fontFamily: "Roobert",
     ),
     iconTheme: IconThemeData(
@@ -14,65 +14,35 @@ final lightTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     bodySmall: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     bodyMedium: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     bodyLarge: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     displaySmall: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     displayLarge: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     displayMedium: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     labelLarge: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     labelMedium: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     labelSmall: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     titleLarge: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     titleMedium: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     titleSmall: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     headlineLarge: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     headlineMedium: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
     headlineSmall: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 16.0),
+        color: Colors.white, fontWeight: FontWeight.normal, fontSize: 16.0),
   ),
   dialogBackgroundColor: Colors.white,
   fontFamily: "Roobert",

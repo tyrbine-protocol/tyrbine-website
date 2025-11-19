@@ -9,7 +9,7 @@ import 'package:tyrbine_website/bl/get_stats.dart';
 import 'package:tyrbine_website/bl/staking.dart';
 import 'package:tyrbine_website/dialogs/choose_token_dialog.dart';
 import 'package:tyrbine_website/models/tx_status.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/presentation/bars/top_mob_bar.dart';
 import 'package:tyrbine_website/presentation/basement/basement_mob_widget.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
@@ -71,7 +71,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
     }
   }
 
-  void calculatingDailyYield(String value, double apy) {
+  void calculatingDailyYield(String value, num apy) {
     if (value.isEmpty) {
       return;
     }
@@ -111,7 +111,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
     return Scaffold(
         body: vaultsAsync.when(
       data: (stat) {
-        Vault vault = stat.vaults.where((v) => v.mint == widget.vaultMint).first;
+        Vault vault = stat!.vaults.where((v) => v.mint == widget.vaultMint).first;
         return Stack(
           children: [
             NotificationListener<ScrollNotification>(
@@ -159,7 +159,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                 style: TextStyle(
                                                     color: Color(0xFF5F5B5B))),
                                             Text(
-                                                '\$${stat.usdTvl24hAgo.formatNumWithCommas()}',
+                                                '\$${stat.usdTvl.formatNumWithCommas()}',
                                                 style:
                                                     const TextStyle(fontSize: 26.0)),
                                           ],
@@ -184,46 +184,6 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                         )
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Image.asset(
-                                              stat.dailyChangeTvlAmount! >= 0
-                                                  ? 'assets/icons/arrow_up.png'
-                                                  : 'assets/icons/arrow_down.png',
-                                              height: 15.0,
-                                              width: 15.0),
-                                          const SizedBox(width: 8.0),
-                                          Text('${stat.dailyChangeTvlPercent}%',
-                                              style: const TextStyle(
-                                                  color: Color(0xFF5F5B5B),
-                                                  fontSize: 14.0)),
-                                          const SizedBox(width: 8.0),
-                                          const Text('·',
-                                              style: TextStyle(
-                                                  color: Color(0xFF5F5B5B),
-                                                  fontSize: 14.0)),
-                                          const SizedBox(width: 8.0),
-                                          Text(
-                                              stat.dailyChangeTvlAmount! >= 0
-                                                  ? '+\$${stat.dailyChangeTvlAmount?.formatNumWithCommas()}'
-                                                  : '-\$${stat.dailyChangeTvlAmount?.abs().formatNumWithCommas()}',
-                                              style: TextStyle(
-                                                  color:
-                                                      stat.dailyChangeTvlAmount! >= 0
-                                                          ? Colors.greenAccent
-                                                          : Colors.red,
-                                                  fontSize: 14.0)),
-                                          const SizedBox(width: 8.0),
-                                          const Text('last 24h',
-                                              style: TextStyle(
-                                                  color: Color(0xFF5F5B5B),
-                                                  fontSize: 14.0)),
-                                        ],
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),

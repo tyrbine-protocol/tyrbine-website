@@ -1,12 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:solana/base58.dart';
 import 'package:solana/dto.dart';
 import 'package:solana/solana.dart';
 import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/staker.dart';
-import 'package:tyrbine_website/models/vault.dart';
+import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/models/vault_pda.dart';
 import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';

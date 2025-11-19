@@ -42,7 +42,7 @@ class BasementMobWidget extends StatelessWidget {
               SizedBox(width: 20.0),
               SocialIconButton(
                 assetPath: "assets/icons/github_icon.svg",
-                url: githubLink,
+                url: repGithubLink,
                 height: 16.0,
               ),
             ],

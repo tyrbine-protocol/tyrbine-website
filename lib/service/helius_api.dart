@@ -73,10 +73,4 @@ class HeliusApi {
         return null;
     }
   }
-
-  static Future getProgramTransactions24h() async {
-    final response = await http.get(Uri.parse('https://devnet.helius-rpc.com/?api-key=7f2a3c15-9d37-4850-a525-2aab028411bf&before=1762958390&after=1762858390'));
-    final jsonDecode = json.decode(response.body);
-    print(jsonDecode);
-  }
 }
