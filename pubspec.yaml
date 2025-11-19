@@ -12,8 +12,6 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  # flutter_localizations:
-  #   sdk: flutter
   flutter_riverpod: ^2.6.1
   url_launcher: ^6.3.0
   js: ^0.6.5
@@ -23,7 +21,6 @@ dependencies:
   http: ^1.3.0
   go_router: ^14.8.0
   adaptive_screen_flutter: ^0.0.5
-  intl: ^0.20.2
   crypto: ^3.0.6
 
   cupertino_icons: ^1.0.8
