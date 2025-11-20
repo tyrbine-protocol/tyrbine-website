@@ -80,7 +80,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
       return;
     }
     final valueNum = num.parse(value);
-    final percent = apr / 100.0 / 365.0;
+    final percent = apr / 100.0;
     setState(() {
       estimatedDailyAmount = (valueNum * percent).smartSignificantRound();
     });
@@ -175,8 +175,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               const Text('Stake amount',
                                                   style: TextStyle(
@@ -218,6 +217,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                           ),
                                           TextField(
                                             controller: _stakeAmountController,
+                                            scrollPhysics: const NeverScrollableScrollPhysics(),
                                             onChanged: (value) =>
                                                 calculatingDailyYield(
                                                     value, vault.apr),
@@ -262,50 +262,47 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                   style: TextStyle(
                                                       color: Color(0xFF5F5B5B)),
                                                 ),
-                                                const SizedBox(height: 16.0),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Image.network(
-                                                          vault.logoUrl,
-                                                          height: 21.0,
-                                                          width: 21.0,
-                                                        ),
-                                                        const SizedBox(width: 8.0),
-                                                        Text(vault.symbol),
-                                                      ],
-                                                    ),
-                                                    Text.rich(
-                                                      TextSpan(
+                                                const SizedBox(height: 8.0),
+                                                Container(
+                                                  height: 50.0,
+                                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(color: Colors.grey.withOpacity(0.1)),
+                                                    borderRadius: BorderRadius.circular(10.0)
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Row(
                                                         children: [
-                                                          TextSpan(
-                                                            text: '+${vault.apr}%',
-                                                            style: const TextStyle(
-                                                              color: Colors
-                                                                  .greenAccent,
-                                                              fontSize: 18.0,
-                                                            ),
+                                                          Image.network(
+                                                            vault.logoUrl,
+                                                            height: 21.0,
+                                                            width: 21.0,
                                                           ),
-                                                          const TextSpan(
-                                                            text: '  24h ',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Color(0xFF5F5B5B),
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          const SizedBox(width: 8.0),
+                                                          Text(vault.symbol),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              '+${vault.apr}%',
+                                                              style: const TextStyle(
+                                                                color: Colors
+                                                                    .greenAccent,
+                                                                fontSize: 18.0,
+                                                              ),
                                                           ),
                                                         ],
                                                       ),
-                                                    )
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                                 const SizedBox(height: 16.0),
                                                 Container(
-                                                  height: 80.0,
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
@@ -320,13 +317,42 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.start,
                                                     children: [
-                                                      const Text(
-                                                        'Estimated daily yield',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color(0xFF5F5B5B)),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          const Text(
+                                                            'Estimated yield',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Color(0xFF5F5B5B)),
+                                                          ),
+                                                          CustomInkWell(
+                                                            onTap: () {},
+                                                            child: Container(
+                                                              height: 30.0,
+                                                              alignment: Alignment.center,
+                                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                              decoration: BoxDecoration(
+                                                                color: Colors.grey.withOpacity(0.05),
+                                                                borderRadius: BorderRadius.circular(5.0)
+                                                              ),
+                                                              child: const Row(
+                                                                children: [
+                                                                  Text('365D', style: TextStyle(color: Colors.grey)),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .keyboard_arrow_down_rounded,
+                                                                    color: Colors.grey,
+                                                                    size: 21.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      const SizedBox(height: 8.0),
+                                                      const SizedBox(height: 4.0),
                                                       Text(
                                                         '$estimatedDailyAmount ${vault.symbol}',
                                                         style: const TextStyle(

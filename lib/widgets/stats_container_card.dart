@@ -39,7 +39,7 @@ class StatsContainerCardState extends State<StatsContainerCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Total value locked',
+                  const Text('Total Value Locked',
                       style: TextStyle(color: Color(0xFF5F5B5B))),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -47,8 +47,9 @@ class StatsContainerCardState extends State<StatsContainerCard> {
                     children: [
                       Text('\$$whole',
                           style: const TextStyle(fontSize: 26.0)),
+                        const SizedBox(width: 2.0),
                         Padding(
-                          padding: const EdgeInsets.only(top: 2.0),
+                          padding: const EdgeInsets.only(top: 3.0),
                           child: Text('.$decimals',
                             style: TextStyle(fontSize: 22.0, color: Colors.grey.shade800)),
                         ),
