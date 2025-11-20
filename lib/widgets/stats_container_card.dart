@@ -46,7 +46,7 @@ class StatsContainerCardState extends State<StatsContainerCard> {
                     children: [
                       const Text('Treasury balance',
                           style: TextStyle(color: Color(0xFF5F5B5B))),
-                      const SizedBox(width: 4.0),
+                      const SizedBox(width: 8.0),
                       CustomInkWell(
                         onTap: () => js.context.callMethod('open', ['https://orb.helius.dev/address/${widget.stat.treasuryAddress}?cluster=${SolanaConfig.cluster}&tab=summary']),
                         child: Container(
