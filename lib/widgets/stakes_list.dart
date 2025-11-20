@@ -32,7 +32,7 @@ class _StakesListState extends ConsumerState<StakesList> {
           child: Padding(
             padding: const EdgeInsets.only(left: 14.0, right: 14.0, bottom: 8.0),
             child: Container(
-              padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 16.0, bottom: 8.0),
+              padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0, bottom: 8.0),
               constraints: const BoxConstraints(
                 maxWidth: 400,
               ),
@@ -49,7 +49,7 @@ class _StakesListState extends ConsumerState<StakesList> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
+                        padding: const EdgeInsets.only(right: 12.0),
                         child: Container(
                           padding: const EdgeInsets.all(8.0),
                           decoration: BoxDecoration(

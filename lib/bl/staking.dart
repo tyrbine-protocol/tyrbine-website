@@ -27,9 +27,9 @@ Future<void> staking(BuildContext context, WidgetRef ref, {required Adapter adap
   tx.addAll(compiledMessage.toByteArray());
   try {
     final signature = await adapter.signAndSendTransaction(Uint8List.fromList(tx));
-    status.value = TxStatus(status: 'Sending transaction', signature: 'https://solscan.io/tx/$signature?cluster=${SolanaConfig.cluster}');
+    status.value = TxStatus(status: 'Sending transaction', signature: 'https://orb.helius.dev/tx/$signature?cluster=${SolanaConfig.cluster}&tab=summary');
     await HeliusApi.waitingSignatureStatus(signature: signature, expectedStatus: Commitment.processed);
-    status.value = TxStatus(status: 'Success', signature: 'https://solscan.io/tx/$signature?cluster=${SolanaConfig.cluster}');
+    status.value = TxStatus(status: 'Success', signature: 'https://orb.helius.dev/tx/$signature?cluster=${SolanaConfig.cluster}&tab=summary');
     
     final currentStakes = ref.read(stakerNotifierProvider);
     if (currentStakes.value == null || currentStakes.value!.isEmpty) {
