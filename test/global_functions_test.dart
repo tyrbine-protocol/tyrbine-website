@@ -11,7 +11,7 @@ void main() {
   });
 
   test('format number', () {
-    debugPrint(12142.formatNumber());
+      debugPrint(12142.formatNumber());
   });
 
 }
