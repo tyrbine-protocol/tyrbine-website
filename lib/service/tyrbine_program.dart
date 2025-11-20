@@ -10,6 +10,14 @@ import 'package:tyrbine_website/service/config.dart';
 class TyrbineProgram {
   static const String programId = "5EfEyaViE5MGrJWoZDFkhWgydwwt4tUQkoPyAEfK5ReV";
 
+  static Future<String> getTreasuryAddress() async {
+    var treasury = await Ed25519HDPublicKey.findProgramAddress(seeds: [
+      "tyrbine-seed".codeUnits,
+      "treasury-seed".codeUnits,
+    ], programId: Ed25519HDPublicKey.fromBase58(programId));
+    return treasury.toBase58();
+  }
+
   static Future<Message> staking(
       {required String signer,
       required Vault vault,

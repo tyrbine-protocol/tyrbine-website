@@ -39,17 +39,20 @@ class Vault {
 }
 
 class Stats {
+  final String treasuryAddress;
   final num usdTvl;
   final List<Vault> vaults;
 
   Stats({
+    required this.treasuryAddress,
     required this.usdTvl,
     required this.vaults,
   });
 
-  factory Stats.fromJson(Map<String, dynamic> json) {
+  factory Stats.fromJson(String treasuryAddress, Map<String, dynamic> json) {
     final vaultsList = json['vaults'] as List<dynamic>;
     return Stats(
+      treasuryAddress: treasuryAddress,
       usdTvl: json['usdTvl'] as num,
       vaults: vaultsList.map((v) => Vault.fromJson(v)).toList(),
     );

@@ -328,7 +328,9 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                                     Color(0xFF5F5B5B)),
                                                           ),
                                                           CustomInkWell(
-                                                            onTap: () {},
+                                                            onTap: () {
+                                                              // ...
+                                                            },
                                                             child: Container(
                                                               height: 30.0,
                                                               alignment: Alignment.center,

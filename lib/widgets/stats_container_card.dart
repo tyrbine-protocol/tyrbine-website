@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tyrbine_website/models/stats.dart';
+import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
+import 'package:tyrbine_website/widgets/custom_inkwell.dart';
+import 'dart:js' as js;
 
 class StatsContainerCard extends StatefulWidget {
   final Stats stat;
@@ -39,8 +42,26 @@ class StatsContainerCardState extends State<StatsContainerCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Total Value Locked',
-                      style: TextStyle(color: Color(0xFF5F5B5B))),
+                  Row(
+                    children: [
+                      const Text('Treasury balance',
+                          style: TextStyle(color: Color(0xFF5F5B5B))),
+                      const SizedBox(width: 4.0),
+                      CustomInkWell(
+                        onTap: () => js.context.callMethod('open', ['https://orb.helius.dev/address/${widget.stat.treasuryAddress}?cluster=${SolanaConfig.cluster}&tab=summary']),
+                        child: Container(
+                          height: 18.0,
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.1)
+                          ),
+                          child: Text(widget.stat.treasuryAddress.cutText(), style: TextStyle(fontSize: 11.0, color: Colors.grey.withOpacity(0.5))),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,

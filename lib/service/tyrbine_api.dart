@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:tyrbine_website/models/stats.dart';
 import 'package:http/http.dart' as http;
+import 'package:tyrbine_website/service/tyrbine_program.dart';
 
 class TyrbineApi {
 
@@ -29,14 +30,15 @@ class TyrbineApi {
 };
 
   static Future<Stats?> getStats() async {
+    final treasury = await TyrbineProgram.getTreasuryAddress();
     try {
       final response = await http.get(Uri.parse('http://localhost:8080/stats'));
       final Map<String, dynamic> jsonDecode = json.decode(response.body);
-      final Stats stat = Stats.fromJson(jsonDecode);
+      final Stats stat = Stats.fromJson(treasury, jsonDecode);
       return stat;
     } catch (e) {
       Exception(["Unable to fetch /stats"]);
-      return Stats.fromJson(_off);
+      return Stats.fromJson(treasury, _off);
     }
   }
 
