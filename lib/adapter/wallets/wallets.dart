@@ -8,16 +8,16 @@ final walletAdaptersProvider = Provider<List<Adapter>>((ref) {
     //     logoUrl: "assets/logos/jupiter.png",
     //     website: "https://jup.ag/download"),
     Adapter(
-        name: "Solflare",
-        logoUrl: "assets/logos/solflare.png",
-        website: "https://solflare.com"),
+        name: "Phantom",
+        logoUrl: "assets/logos/phantom.png",
+        website: "https://phantom.app/download"),
     Adapter(
         name: "Backpack",
         logoUrl: "assets/logos/backpack.png",
         website: "https://backpack.app/download"),
     Adapter(
-        name: "Phantom",
-        logoUrl: "assets/logos/phantom.png",
-        website: "https://phantom.app/download"),
+        name: "Solflare",
+        logoUrl: "assets/logos/solflare.png",
+        website: "https://solflare.com"),
   ];
 });

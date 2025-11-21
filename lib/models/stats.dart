@@ -40,12 +40,12 @@ class Vault {
 
 class Stats {
   final String treasuryAddress;
-  final num usdTvl;
+  final num usdTreasuryBalance;
   final List<Vault> vaults;
 
   Stats({
     required this.treasuryAddress,
-    required this.usdTvl,
+    required this.usdTreasuryBalance,
     required this.vaults,
   });
 
@@ -53,13 +53,13 @@ class Stats {
     final vaultsList = json['vaults'] as List<dynamic>;
     return Stats(
       treasuryAddress: treasuryAddress,
-      usdTvl: json['usdTvl'] as num,
+      usdTreasuryBalance: json['usdTvl'] as num,
       vaults: vaultsList.map((v) => Vault.fromJson(v)).toList(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'usdTvl': usdTvl,
+        'usdTvl': usdTreasuryBalance,
         'vaults': vaults.map((v) => v.toJson()).toList(),
       };
 }

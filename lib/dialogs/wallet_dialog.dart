@@ -75,7 +75,7 @@ void showWalletDialog(BuildContext context, WidgetRef ref) {
                                   ),
                                   const SizedBox(width: 16.0),
                                   Text(wallet.name),
-                                  wallet.name == "Solflare"
+                                  wallet.name == "Phantom"
                                       ? const Row(
                                           children: [
                                             SizedBox(width: 16.0),

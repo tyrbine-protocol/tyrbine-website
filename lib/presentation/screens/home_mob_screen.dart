@@ -159,7 +159,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                 style: TextStyle(
                                                     color: Color(0xFF5F5B5B))),
                                             Text(
-                                                '\$${stat.usdTvl.formatNumWithCommas()}',
+                                                '\$${stat.usdTreasuryBalance.formatNumWithCommas()}',
                                                 style:
                                                     const TextStyle(fontSize: 26.0)),
                                           ],

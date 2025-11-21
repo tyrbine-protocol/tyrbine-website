@@ -19,7 +19,7 @@ class StatsContainerCardState extends State<StatsContainerCard> {
 
   @override
   Widget build(BuildContext context) {
-    final tvl = widget.stat.usdTvl;
+    final tvl = widget.stat.usdTreasuryBalance;
     final parts = tvl.toStringAsFixed(2).split('.');  
     final whole = int.parse(parts[0]).formatNumWithCommas();  
     final decimals = parts[1];

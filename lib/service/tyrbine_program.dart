@@ -3,12 +3,13 @@ import 'package:fixnum/fixnum.dart';
 import 'package:solana/base58.dart';
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';
+import 'package:tyrbine_website/evn.dart';
 import 'package:tyrbine_website/models/staked.dart';
 import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/service/config.dart';
 
 class TyrbineProgram {
-  static const String programId = "5EfEyaViE5MGrJWoZDFkhWgydwwt4tUQkoPyAEfK5ReV";
+  static const String programId = TYRBINE_PROGRAM_ID;
 
   static Future<String> getTreasuryAddress() async {
     var treasury = await Ed25519HDPublicKey.findProgramAddress(seeds: [

@@ -7,7 +7,7 @@ void main() {
 
   test('get stat', () async {
     final Stats? stats = await getStats();
-    debugPrint(stats?.usdTvl.toString());
+    debugPrint(stats?.usdTreasuryBalance.toString());
 });
   
 // test('get staker', () async {
