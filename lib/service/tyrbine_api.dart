@@ -32,7 +32,7 @@ class TyrbineApi {
   static Future<Stats?> getStats() async {
     final treasury = await TyrbineProgram.getTreasuryAddress();
     try {
-      final response = await http.get(Uri.parse('http://localhost:8080/stats'));
+      final response = await http.get(Uri.parse('http://64.111.92.9:8080/stats'));
       final Map<String, dynamic> jsonDecode = json.decode(response.body);
       final Stats stat = Stats.fromJson(treasury, jsonDecode);
       return stat;

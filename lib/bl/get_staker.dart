@@ -52,7 +52,7 @@ Future<List<Staked>> getStaker({required String owner, required List<Vault> vaul
 
     final accounts = await solanaClient.rpcClient.getTokenAccountsByOwner(owner, const TokenAccountsFilter.byProgramId(TokenProgram.programId), encoding: Encoding.jsonParsed, commitment: Commitment.processed);
     var tyrbineVaults = await solanaClient.rpcClient.getProgramAccounts(TyrbineProgram.programId, encoding: Encoding.jsonParsed, filters: [const ProgramDataFilter.dataSize(161)], commitment: Commitment.processed);
-
+    
     for (var value in tyrbineVaults) {
       vaults.add(VaultPda.fromProgramAccount(value));
     }
