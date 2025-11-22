@@ -1,7 +1,7 @@
 
 import 'package:tyrbine_website/models/stats.dart';
 
-final Map<String, Vault> vaultsData = {
+Map<String, Vault> vaultsData = {
   'So11111111111111111111111111111111111111112': Vault(
         mint: 'So11111111111111111111111111111111111111112', 
         pythOracle: '7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE', 

@@ -11,8 +11,7 @@ import 'package:tyrbine_website/service/config.dart';
 import 'package:tyrbine_website/service/tyrbine_program.dart';
 import 'package:tyrbine_website/utils/extensions.dart';
 
-final stakerNotifierProvider =
-    AsyncNotifierProvider<StakerNotifier, List<Staked>>(() => StakerNotifier());
+final stakerNotifierProvider = AsyncNotifierProvider<StakerNotifier, List<Staked>>(() => StakerNotifier());
 
 class StakerNotifier extends AsyncNotifier<List<Staked>> {
   @override
