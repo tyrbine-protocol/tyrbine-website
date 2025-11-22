@@ -128,9 +128,9 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 120.0),
+                        const SizedBox(height: 70.0),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,24 +164,10 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                                     const TextStyle(fontSize: 26.0)),
                                           ],
                                         ),
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Container(
-                                            height: 40.0,
-                                            width: 40.0,
-                                            alignment: Alignment.center,
-                                            decoration: const BoxDecoration(
-                                                gradient: LinearGradient(colors: [
-                                                  Color(0xFF1C1C1C),
-                                                  Color(0xFF121212)
-                                                ]),
-                                                shape: BoxShape.circle),
-                                            child: Image.asset(
-                                                'assets/icons/lock_icon.png',
-                                                height: 18.0,
-                                                width: 18.0),
-                                          ),
-                                        )
+                                        SvgPicture.asset(
+                                            'assets/icons/tyrb_abstr.svg',
+                                            height: 50.0,
+                                            width: 50.0)
                                       ],
                                     ),
                                   ],
@@ -448,7 +434,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                         ),
                         if (isConnected)
                           Padding(
-                            padding: const EdgeInsets.only(left: 280.0, right: 280.0, top: 16.0, bottom: 64.0),
+                            padding: const EdgeInsets.all(16.0),
                             child: stakerAsync.when(
                                   data: (stakes) {
                                     if (stakes.isEmpty) {
@@ -494,9 +480,11 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
                                   ),
                                 ),
                           ),
+                          const SizedBox(height: 64.0),
                       ],
                     ),
                   ),
+                  
                   const Align(
                       alignment: Alignment.bottomCenter,
                       child: BasementMobWidget(),
@@ -511,7 +499,7 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
               child: TopMobBar(),
             ),
             Positioned(
-              top: 85.0,
+              top: 60.0,
               left: 0,
               right: 0,
               child: AnimatedOpacity(

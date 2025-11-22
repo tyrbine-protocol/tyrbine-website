@@ -2,13 +2,13 @@ import 'dart:math';
 import 'dart:math' as math;
 
 extension StringExtension on String {
-  String cutText() {
+  String cutText({int? start, int? end}) {
     if (length < 18) {
       return this;
     }
 
-    String startSymbols = substring(0, 4);
-    String endSymbols = substring(length - 7);
+    String startSymbols = substring(0, start ?? 4);
+    String endSymbols = substring(length - (end ?? 7));
     '';
     return '$startSymbols...$endSymbols';
   }

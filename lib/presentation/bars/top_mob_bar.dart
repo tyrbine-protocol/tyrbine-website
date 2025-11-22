@@ -28,63 +28,59 @@ class _TopMobBarState extends ConsumerState<TopMobBar> {
     final walletNotifier = ref.read(walletProvider.notifier);
     final isConnected = wallet?.pubkey != null;
 
-    return Column(
-      children: [
-        Container(
-          height: 60.0,
-          width: MediaQuery.of(context).size.width,
-          decoration:
-              BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+    return Container(
+      height: 60.0,
+      width: MediaQuery.of(context).size.width,
+      decoration:
+          BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/logos/tyr_logo.svg',
-                        height: 25.0, width: 25.0),
-                    const SizedBox(width: 16.0),
-                    const Text('Tyrbine', style: TextStyle(fontSize: 18.0)),
-                  ],
-                ),
-                isConnected
-                    ? CustomInkWell(
-                        onTap: () => walletNotifier.disconnect(),
-                        child: Container(
-                          height: 30.0,
-                          width: 120.0,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(5.0)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(wallet!.pubkey!.cutText(),
-                                  style: const TextStyle(
-                                      color: Colors.redAccent, fontSize: 15.0)),
-                              const SizedBox(width: 8.0),
-                              const Icon(Icons.power_settings_new,
-                                  size: 18.0, color: Colors.redAccent)
-                            ],
-                          ),
-                        ),
-                      )
-                    : CustomButton(
-                        height: 30.0,
-                        width: 120.0,
-                        title: "Connect",
-                        iconData: Icons.power,
-                        onTap: () => showWalletDialog(context, ref),
-                      )
+                SvgPicture.asset('assets/logos/tyr_logo.svg',
+                    height: 25.0, width: 25.0),
+                const SizedBox(width: 16.0),
+                const Text('Tyrbine', style: TextStyle(fontSize: 18.0)),
               ],
             ),
-          ),
+            isConnected
+                ? CustomInkWell(
+                    onTap: () => walletNotifier.disconnect(),
+                    child: Container(
+                      height: 30.0,
+                      width: 120.0,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(5.0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(wallet!.pubkey!.cutText(start: 2, end: 7),
+                              style: const TextStyle(
+                                  color: Colors.redAccent, fontSize: 15.0)),
+                          const SizedBox(width: 8.0),
+                          const Icon(Icons.power_settings_new,
+                              size: 18.0, color: Colors.redAccent)
+                        ],
+                      ),
+                    ),
+                  )
+                : CustomButton(
+                    height: 30.0,
+                    width: 120.0,
+                    title: "Connect",
+                    iconData: Icons.power,
+                    onTap: () => showWalletDialog(context, ref),
+                  )
+          ],
         ),
-      ],
+      ),
     );
   }
 
