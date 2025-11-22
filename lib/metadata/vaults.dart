@@ -1,8 +1,8 @@
 
 import 'package:tyrbine_website/models/stats.dart';
 
-final List<Vault> vaultsData = [
-      Vault(
+final Map<String, Vault> vaultsData = {
+  'So11111111111111111111111111111111111111112': Vault(
         mint: 'So11111111111111111111111111111111111111112', 
         pythOracle: '7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE', 
         symbol: 'SOL', 
@@ -10,7 +10,7 @@ final List<Vault> vaultsData = [
         decimals: 9, 
         tvl: 0, 
         apr: 0),
-      Vault(
+  'Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr': Vault(
         mint: 'Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr', // // [mainnet] - EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
         pythOracle: 'Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX', 
         symbol: 'USDC', 
@@ -18,12 +18,14 @@ final List<Vault> vaultsData = [
         decimals: 6, 
         tvl: 0, 
         apr: 0),
-      // Vault(
-      //   mint: 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB', // // [mainnet] - Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB
-      //   pythOracle: 'Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX', 
-      //   symbol: 'USDT', 
-      //   logoUrl: 'https://ccdlupml3otto3lav7y5ampaqcwfaxzpmt52vze3xdbe6khkid3q.arweave.net/EIa6PYvbpzdtYK_x0DHggKxQXy9k-6rkm7jCTyjqQPc', 
-      //   decimals: 6, 
-      //   tvl: 0, 
-      //   apr: 0),
-];
+    // 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB': Vault(
+    //     mint: 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB', // // [mainnet] - Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB
+    //     pythOracle: 'Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX', 
+    //     symbol: 'USDT', 
+    //     logoUrl: 'https://ccdlupml3otto3lav7y5ampaqcwfaxzpmt52vze3xdbe6khkid3q.arweave.net/EIa6PYvbpzdtYK_x0DHggKxQXy9k-6rkm7jCTyjqQPc', 
+    //     decimals: 6, 
+    //     tvl: 0, 
+    //     apr: 0),
+};
+      
+      

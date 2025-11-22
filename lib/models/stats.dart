@@ -4,8 +4,8 @@ class Vault {
   final String symbol;
   final String logoUrl;
   final int decimals;
-  final num tvl;
-  final num apr;
+  num tvl;
+  num apr;
 
   Vault({
     required this.mint,
