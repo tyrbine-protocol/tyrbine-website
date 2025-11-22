@@ -4,6 +4,7 @@ import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
+import 'package:tyrbine_website/widgets/esc_button.dart';
 
 void chooseTokenDialog(BuildContext context, WidgetRef ref, List<Vault> vaults, {bool? isMob}) {
   showDialog(
@@ -34,19 +35,7 @@ void chooseTokenDialog(BuildContext context, WidgetRef ref, List<Vault> vaults, 
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text("Choose token"),
-                        CustomInkWell(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: Container(
-                            height: 25.0,
-                            width: 55.0,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: Colors.grey.shade900
-                            ),
-                            child: const Text('Esc', style: TextStyle(fontSize: 14.0, color: Colors.grey)),
-                          ),
-                        ),
+                        EscButton(onTap: () => Navigator.of(context).pop())
                       ],
                     ),
                   ),

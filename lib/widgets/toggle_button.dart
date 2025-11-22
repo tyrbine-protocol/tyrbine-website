@@ -8,6 +8,7 @@ class ToggleButton extends StatefulWidget {
   final Color activeColor;
   final double height;
   final double width;
+  final FontWeight fontWeight;
 
   const ToggleButton({
     super.key,
@@ -17,6 +18,7 @@ class ToggleButton extends StatefulWidget {
     required this.activeColor,
     this.height = 35.0,
     this.width = 50.0,
+    this.fontWeight = FontWeight.bold
   });
 
   @override
@@ -50,7 +52,7 @@ class _ToggleButtonState extends State<ToggleButton> {
           widget.text,
           style: TextStyle(
             color: widget.isActive ? widget.activeColor : Colors.grey.shade700,
-            fontWeight: FontWeight.bold,
+            fontWeight: widget.fontWeight,
           ),
         ),
       ),

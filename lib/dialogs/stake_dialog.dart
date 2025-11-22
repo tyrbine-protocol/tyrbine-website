@@ -10,9 +10,12 @@ import 'package:tyrbine_website/models/stats.dart';
 import 'package:tyrbine_website/presentation/screens/home_mob_screen.dart';
 import 'package:tyrbine_website/presentation/screens/home_web_screen.dart';
 import 'package:tyrbine_website/widgets/custom_inkwell.dart';
+import 'package:tyrbine_website/widgets/esc_button.dart';
 import 'package:tyrbine_website/widgets/toggle_button.dart';
 
-void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vault> vaultsData, Adapter adapter, {required ValueNotifier<TxStatus> status, bool? isMob}) {
+void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake,
+    List<Vault> vaultsData, Adapter adapter,
+    {required ValueNotifier<TxStatus> status, bool? isMob}) {
   Navigator.maybePop(context);
 
   showDialog(
@@ -34,7 +37,8 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(color: Colors.grey.withOpacity(0.2)),
                 ),
-                padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0, bottom: 16.0),
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 16.0, right: 16.0, bottom: 16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +55,8 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.grey.withOpacity(0.05),
-                                border: Border.all(color: Colors.grey.withOpacity(0.05)),
+                                border: Border.all(
+                                    color: Colors.grey.withOpacity(0.05)),
                               ),
                               child: Image.network(
                                 stake.logoUrl,
@@ -65,22 +70,7 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                             Text(stake.symbol),
                           ],
                         ),
-                        CustomInkWell(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: Container(
-                            height: 25.0,
-                            width: 55.0,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: Colors.grey.shade900,
-                            ),
-                            child: const Text(
-                              'Esc',
-                              style: TextStyle(fontSize: 14.0, color: Colors.grey),
-                            ),
-                          ),
-                        ),
+                        EscButton(onTap: () => Navigator.of(context).pop()),
                       ],
                     ),
 
@@ -94,7 +84,8 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                           children: [
                             Text('Staked',
                                 style: TextStyle(
-                                    color: Colors.grey.shade700, fontSize: 15.0)),
+                                    color: Colors.grey.shade700,
+                                    fontSize: 15.0)),
                             const SizedBox(width: 8.0),
                             Text(stake.uiAmount,
                                 style: const TextStyle(fontSize: 15.0)),
@@ -107,7 +98,8 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                           children: [
                             Text('Earned',
                                 style: TextStyle(
-                                    color: Colors.grey.shade700, fontSize: 15.0)),
+                                    color: Colors.grey.shade700,
+                                    fontSize: 15.0)),
                             const SizedBox(width: 8.0),
                             Text(stake.earned.toString(),
                                 style: const TextStyle(fontSize: 15.0)),
@@ -133,7 +125,8 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                           onTap: () => Navigator.push(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) {
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) {
                                 if (isMob != null && isMob) {
                                   return HomeMobScreen(vaultMint: stake.mint);
                                 }
@@ -164,34 +157,27 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
 
                         /// Claim
                         Expanded(
-                          child: CustomInkWell(
+                          child: ToggleButton(
+                            isActive: !showUnstakeField,
+                            activeColor: Colors.amber,
+                            fontWeight: FontWeight.normal,
                             onTap: () {
                               if (showUnstakeField) {
                                 setState(() {
                                   showUnstakeField = false;
                                 });
                               }
-                              claim(context, ref, adapter: adapter, status: status, mint: stake.mint, vaultsData: vaultsData);
+                              claim(
+                                context,
+                                ref,
+                                adapter: adapter,
+                                status: status,
+                                mint: stake.mint,
+                                vaultsData: vaultsData,
+                              );
                               Navigator.of(context).pop();
                             },
-                            child: Container(
-                              height: 35.0,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: showUnstakeField
-                                    ? Colors.grey.withOpacity(0.05)
-                                    : Colors.amber.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Text(
-                                'Claim',
-                                style: TextStyle(
-                                  color: showUnstakeField
-                                      ? Colors.grey.shade700
-                                      : Colors.amber,
-                                ),
-                              ),
-                            ),
+                            text: "Claim",
                           ),
                         ),
                       ],
@@ -202,7 +188,8 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                       const SizedBox(height: 20.0),
                       TextField(
                         controller: unstakeController,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                         ],
@@ -212,21 +199,25 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                           suffixIcon: Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: CustomInkWell(
-                              onTap: () => unstakeController.text = stake.uiAmount,
+                              onTap: () =>
+                                  unstakeController.text = stake.uiAmount,
                               child: Container(
                                   height: 35.0,
                                   width: 50.0,
                                   alignment: Alignment.center,
-                                  child: const Text('max', style: TextStyle(color: Colors.grey))),
+                                  child: const Text('max',
+                                      style: TextStyle(color: Colors.grey))),
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(color: Colors.grey.shade800, width: 1.0),
+                            borderSide: BorderSide(
+                                color: Colors.grey.shade800, width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(color: Colors.grey.shade600, width: 1.0),
+                            borderSide: BorderSide(
+                                color: Colors.grey.shade600, width: 1.0),
                           ),
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 12.0, vertical: 8.0),
@@ -237,7 +228,12 @@ void showStakeDialog(BuildContext context, WidgetRef ref, Staked stake, List<Vau
                         onTap: () {
                           final amount = unstakeController.text.trim();
                           if (amount.isNotEmpty) {
-                            unstaking(context, ref, adapter: adapter, stake: stake, status: status, vaultsData: vaultsData, amountText: unstakeController.text);
+                            unstaking(context, ref,
+                                adapter: adapter,
+                                stake: stake,
+                                status: status,
+                                vaultsData: vaultsData,
+                                amountText: unstakeController.text);
                             Navigator.of(context).pop();
                           }
                         },
