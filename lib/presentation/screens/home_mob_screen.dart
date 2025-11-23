@@ -108,421 +108,456 @@ class _HomeMobScreenState extends ConsumerState<HomeMobScreen>
             );
       }
     });
+
     return Scaffold(
-        body: vaultsAsync.when(
-      data: (stat) {
-        Vault vault = stat!.vaults.where((v) => v.mint == widget.vaultMint).first;
-        return Stack(
-          children: [
-            NotificationListener<ScrollNotification>(
-              onNotification: (scrollNotification) {
-                _onScroll(scrollNotification.metrics.pixels);
-                return true;
-              },
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  SingleChildScrollView(
-                    controller: _scrollController,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 70.0),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      body: vaultsAsync.when(
+        data: (stat) {
+          Vault vault =
+              stat!.vaults.where((v) => v.mint == widget.vaultMint).first;
+          final tvl = stat.usdTreasuryBalance;
+          final parts = tvl.toStringAsFixed(2).split('.');
+          final whole = int.parse(parts[0]).formatNumWithCommas();
+          final decimals = parts[1];
+
+          return Stack(
+            children: [
+
+              NotificationListener<ScrollNotification>(
+                onNotification: (scrollNotification) {
+                  _onScroll(scrollNotification.metrics.pixels);
+                  return true;
+                },
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      controller: _scrollController,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: constraints.maxHeight,
+                        ),
+                        child: IntrinsicHeight(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 400.0,
-                                padding: const EdgeInsets.all(16.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    border: Border.all(
-                                        color: Colors.grey.shade600, width: 0.15)),
+
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 70.0, left: 16.0, right: 16.0),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text('Total Value Locked',
-                                                style: TextStyle(
-                                                    color: Color(0xFF5F5B5B))),
-                                            Text(
-                                                '\$${stat.usdTreasuryBalance.formatNumWithCommas()}',
-                                                style:
-                                                    const TextStyle(fontSize: 26.0)),
-                                          ],
-                                        ),
-                                        SvgPicture.asset(
-                                            'assets/icons/tyrb_abstr.svg',
-                                            height: 50.0,
-                                            width: 50.0)
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 16.0),
-                              SvgPicture.asset("assets/icons/stars.svg",
-                                  height: 12.0),
-                              const SizedBox(height: 16.0),
-                              Container(
-                                width: 400.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  border: Border.all(
-                                      color: Colors.grey.shade600, width: 0.15),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 16.0, right: 16.0, left: 16.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text('Stake tokens',
-                                          style: TextStyle(fontSize: 18.0)),
-                                      const SizedBox(height: 8.0),
-                                      const Text(
-                                        'Choose your staking tokens',
-                                        style: TextStyle(color: Color(0xFF5F5B5B)),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                      Container(
-                                        height: 100.0,
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: const EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              const Color.fromARGB(255, 12, 12, 12),
-                                          borderRadius: BorderRadius.circular(10.0),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                const Text('Stake amount',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF5F5B5B))),
-                                                CustomInkWell(
-                                                  onTap: () => chooseTokenDialog(
-                                                      context, ref, stat.vaults),
-                                                  child: Container(
-                                                    height: 35.0,
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                            horizontal: 8.0),
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(0xFF030303),
-                                                      border: Border.all(
-                                                          color: const Color(
-                                                              0xFF202020)),
-                                                      borderRadius:
-                                                          BorderRadius.circular(6.0),
-                                                    ),
-                                                    child: Row(
-                                                      children: [
-                                                        Image.network(vault.logoUrl,
-                                                            height: 21.0,
-                                                            width: 21.0),
-                                                        const SizedBox(width: 8.0),
-                                                        Text(vault.symbol),
-                                                        const Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down_rounded,
-                                                          color: Colors.grey,
-                                                          size: 21.0,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            TextField(
-                                              controller: _stakeAmountController,
-                                              onChanged: (value) =>
-                                                  calculatingDailyYield(
-                                                      value, vault.apr),
-                                              keyboardType: TextInputType.number,
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter.allow(
-                                                    RegExp(r'[0-9.]')),
-                                              ],
-                                              decoration: const InputDecoration(
-                                                hint: Text('0.00',
-                                                    style: TextStyle(
-                                                        fontSize: 26.0,
-                                                        color: Color(0xFF252525))),
-                                                border: InputBorder.none,
-                                                isCollapsed: true,
-                                                contentPadding: EdgeInsets.zero,
-                                              ),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 26.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                        
-                                      // Вставлен AnimatedSwitcher
-                                      AnimatedSwitcher(
-                                        duration: const Duration(milliseconds: 300),
-                                        transitionBuilder: (child, animation) =>
-                                            FadeTransition(
-                                                opacity: animation, child: child),
-                                        child: _showVaultSection
-                                            ? Column(
-                                                key: const ValueKey('vault_section'),
+                                    Container(
+                                      width: 400.0,
+                                      padding: const EdgeInsets.all(16.0),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          border: Border.all(
+                                              color: Colors.grey.shade600,
+                                              width: 0.15)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                            children: [
+                                              Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   const Text(
-                                                    'You’ll join this vault',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF5F5B5B)),
-                                                  ),
-                                                  const SizedBox(height: 16.0),
+                                                      'Treasury balance',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF5F5B5B))),
                                                   Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
                                                     children: [
-                                                      Row(
-                                                        children: [
-                                                          Image.network(
-                                                            vault.logoUrl,
-                                                            height: 21.0,
-                                                            width: 21.0,
-                                                          ),
-                                                          const SizedBox(width: 8.0),
-                                                          Text(vault.symbol),
-                                                        ],
-                                                      ),
-                                                      Text.rich(
-                                                        TextSpan(
-                                                          children: [
-                                                            TextSpan(
-                                                              text: '+${vault.apr}%',
-                                                              style: const TextStyle(
+                                                      Text('\$$whole',
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize:
+                                                                      26.0)),
+                                                      const SizedBox(
+                                                          width: 2.0),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 3.0),
+                                                        child: Text(
+                                                            '.$decimals',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    22.0,
                                                                 color: Colors
-                                                                    .greenAccent,
-                                                                fontSize: 18.0,
-                                                              ),
-                                                            ),
-                                                            const TextSpan(
-                                                              text: '  annual ',
-                                                              style: TextStyle(
-                                                                color:
-                                                                    Color(0xFF5F5B5B),
-                                                                fontSize: 16.0,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )
+                                                                    .grey
+                                                                    .shade800)),
+                                                      ),
                                                     ],
                                                   ),
-                                                  const SizedBox(height: 16.0),
-                                                  Container(
-                                                    height: 80.0,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width,
-                                                    padding:
-                                                        const EdgeInsets.all(8.0),
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(0xFF090909),
-                                                      borderRadius:
-                                                          BorderRadius.circular(10.0),
-                                                    ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
-                                                      children: [
-                                                        const Text(
-                                                          'Estimated daily yield',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Color(0xFF5F5B5B)),
-                                                        ),
-                                                        const SizedBox(height: 8.0),
-                                                        Text(
-                                                          '$estimatedDailyAmount ${vault.symbol}',
-                                                          style: const TextStyle(
-                                                              fontSize: 18.0),
-                                                        ),
-                                                        // Add annual yield
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16.0),
-                                                  const Text(
-                                                    'By providing liquidity, you’ll earn a portion of trading fees',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF5F5B5B),
-                                                        fontSize: 13.0),
-                                                  ),
-                                                  const SizedBox(height: 32.0),
-                                                  CustomInkWell(
-                                                    onTap: () => isConnected
-                                                        ? staking(
-                                                            context,
-                                                            ref,
-                                                            adapter: wallet!,
-                                                            vault: vault,
-                                                            vaultsData: stat.vaults,
-                                                            status: transactionStatus,
-                                                            amountText:
-                                                                _stakeAmountController
-                                                                    .text)
-                                                        : null,
-                                                    child: Container(
-                                                      height: 42.0,
-                                                      width: MediaQuery.of(context)
-                                                          .size
-                                                          .width,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                100.0),
-                                                        color: isConnected
-                                                            ? const Color(0xFF7637EC)
-                                                            : Colors.grey.shade900,
-                                                      ),
-                                                      child: const Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment.center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons.add,
-                                                            color: Colors.white,
-                                                            size: 18.0,
-                                                          ),
-                                                          SizedBox(width: 8.0),
-                                                          Text('Stake'),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16.0),
                                                 ],
-                                              )
-                                            : const SizedBox.shrink(),
+                                              ),
+                                              SvgPicture.asset(
+                                                  'assets/icons/tyrb_abstr.svg',
+                                                  height: 50.0,
+                                                  width: 50.0)
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    SvgPicture.asset("assets/icons/stars.svg",
+                                        height: 12.0),
+                                    const SizedBox(height: 16.0),
+
+                                    buildStakeBox(vault, stat, isConnected,
+                                        wallet),
+
+                                    if (isConnected)
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                        child: stakerAsync.when(
+                                          data: (stakes) {
+                                            if (stakes.isEmpty) {
+                                              return const SizedBox();
+                                            }
+                                            return Column(
+                                              children: [
+                                                SvgPicture.asset(
+                                                    "assets/icons/stars.svg",
+                                                    height: 12.0),
+                                                const SizedBox(height: 16.0),
+                                                Container(
+                                                  width: 400.0,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    border: Border.all(
+                                                        color: Colors
+                                                            .grey.shade700,
+                                                        width: 0.2),
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 16.0,
+                                                                left: 16.0,
+                                                                bottom: 8.0),
+                                                        child: Text(
+                                                          'Your stakes',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF5F5B5B)),
+                                                        ),
+                                                      ),
+                                                      StakesList(
+                                                          stakes: stakes,
+                                                          vaultsData:
+                                                              stat.vaults),
+                                                      const SizedBox(
+                                                          height: 8.0),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                          loading: () =>
+                                              const StarsProgressIndicator(),
+                                          error: (e, _) => Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 32.0),
+                                            child: Text('Error: $e',
+                                                style: const TextStyle(
+                                                    color: Colors.red)),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
                                 ),
+                              ),
+
+                              const Spacer(),
+
+                              const Padding(
+                                padding: EdgeInsets.only(top: 16.0),
+                                child: BasementMobWidget(),
                               ),
                             ],
                           ),
                         ),
-                        if (isConnected)
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: stakerAsync.when(
-                                  data: (stakes) {
-                                    if (stakes.isEmpty) {
-                                      return const SizedBox();
-                                    }
-                                    return Column(
-                                      children: [
-                                        SvgPicture.asset("assets/icons/stars.svg",
-                                          height: 12.0),
-                                        const SizedBox(height: 16.0),
-                                        Container(
-                                          width: 400.0,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(12.0),
-                                            border: Border.all(
-                                                color: Colors.grey.shade700, width: 0.2),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 16.0, left: 16.0, bottom: 8.0),
-                                                child: Text(
-                                                  'Your stakes',
-                                                  style: TextStyle(color: Color(0xFF5F5B5B)),
-                                                ),
-                                              ),
-                                              StakesList(stakes: stakes, vaultsData: stat.vaults),
-                                              const SizedBox(height: 8.0),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                  loading: () => const StarsProgressIndicator(),
-                                  error: (e, _) => Padding(
-                                    padding: const EdgeInsets.only(top: 32.0),
-                                    child: Text('Error: $e',
-                                        style:
-                                            const TextStyle(color: Colors.red)),
-                                  ),
-                                ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              const Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: TopMobBar(),
+              ),
+
+              Positioned(
+                top: 60.0,
+                left: 0,
+                right: 0,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: _isAtTop ? 0.0 : 0.5,
+                  child:
+                      const Divider(height: 0.5, color: Color(0xFF2B2B2B)),
+                ),
+              ),
+            ],
+          );
+        },
+        loading: () => Center(
+          child: RotationTransition(
+            turns: Tween(begin: 0.0, end: -1.0).animate(_controller),
+            child: SvgPicture.string(_spinnerSvg, width: 40, height: 40),
+          ),
+        ),
+        error: (err, _) => Center(child: Text('Error: $err')),
+      ),
+    );
+  }
+
+  Widget buildStakeBox(Vault vault, Stats stat, bool isConnected, Adapter? wallet) {
+    return Container(
+      width: 400.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: Colors.grey.shade600, width: 0.15),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Stake tokens', style: TextStyle(fontSize: 18.0)),
+            const SizedBox(height: 8.0),
+            const Text(
+              'Choose your staking tokens',
+              style: TextStyle(color: Color(0xFF5F5B5B)),
+            ),
+            const SizedBox(height: 16.0),
+
+            Container(
+              height: 100.0,
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 12, 12, 12),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Stake amount',
+                          style: TextStyle(color: Color(0xFF5F5B5B))),
+                      CustomInkWell(
+                        onTap: () => chooseTokenDialog(
+                            context, ref, stat.vaults, isMob: true),
+                        child: Container(
+                          height: 35.0,
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 8.0),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF030303),
+                            border: Border.all(color: const Color(0xFF202020)),
+                            borderRadius: BorderRadius.circular(6.0),
                           ),
-                          const SizedBox(height: 64.0),
-                      ],
-                    ),
+                          child: Row(
+                            children: [
+                              Image.network(vault.logoUrl,
+                                  height: 21.0, width: 21.0),
+                              const SizedBox(width: 8.0),
+                              Text(vault.symbol),
+                              const Icon(Icons.keyboard_arrow_down_rounded,
+                                  color: Colors.grey, size: 21.0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  
-                  const Align(
-                      alignment: Alignment.bottomCenter,
-                      child: BasementMobWidget(),
+                  TextField(
+                    controller: _stakeAmountController,
+                    onChanged: (value) =>
+                        calculatingDailyYield(value, vault.apr),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'[0-9.]')),
+                    ],
+                    decoration: const InputDecoration(
+                      hint: Text('0.00',
+                          style: TextStyle(
+                              fontSize: 26.0, color: Color(0xFF252525))),
+                      border: InputBorder.none,
                     ),
+                    style: const TextStyle(
+                        color: Colors.white, fontSize: 26.0),
+                  ),
                 ],
               ),
             ),
-            const Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: TopMobBar(),
-            ),
-            Positioned(
-              top: 60.0,
-              left: 0,
-              right: 0,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 200),
-                opacity: _isAtTop ? 0.0 : 1.0,
-                child: const Divider(height: 0.5, color: Color(0xFF2B2B2B)),
-              ),
+
+            const SizedBox(height: 16.0),
+
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: (child, animation) =>
+                  FadeTransition(opacity: animation, child: child),
+              child: _showVaultSection
+                  ? Column(
+                      key: const ValueKey('vault_section'),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('You’ll join this vault',
+                            style: TextStyle(color: Color(0xFF5F5B5B))),
+                        const SizedBox(height: 16.0),
+                        Container(
+                          height: 50.0,
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 8.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.grey.withOpacity(0.1)),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Image.network(vault.logoUrl,
+                                      height: 21.0, width: 21.0),
+                                  const SizedBox(width: 8.0),
+                                  Text(vault.symbol),
+                                ],
+                              ),
+                              Text(
+                                '+${vault.apr}%',
+                                style: const TextStyle(
+                                    color: Colors.greenAccent,
+                                    fontSize: 18.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16.0),
+                        Container(
+                          height: 80.0,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF090909),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Estimated yield',
+                                      style: TextStyle(
+                                          color: Color(0xFF5F5B5B))),
+                                  buildPeriodSelector(),
+                                ],
+                              ),
+                              const SizedBox(height: 4.0),
+                              Text(
+                                '$estimatedDailyAmount ${vault.symbol}',
+                                style: const TextStyle(fontSize: 18.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16.0),
+                        const Text(
+                          'By providing liquidity, you’ll earn a portion of trading fees',
+                          style: TextStyle(
+                              color: Color(0xFF5F5B5B), fontSize: 13.0),
+                        ),
+                        const SizedBox(height: 32.0),
+
+                        /// Stake Button
+                        CustomInkWell(
+                          onTap: () => isConnected
+                              ? staking(context, ref,
+                                  adapter: wallet!,
+                                  vault: vault,
+                                  vaultsData: stat.vaults,
+                                  status: transactionStatus,
+                                  amountText:
+                                      _stakeAmountController.text)
+                              : null,
+                          child: Container(
+                            height: 42.0,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.0),
+                              color: isConnected
+                                  ? const Color(0xFF7637EC)
+                                  : Colors.grey.shade900,
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.add,
+                                    color: Colors.white, size: 18.0),
+                                SizedBox(width: 8.0),
+                                Text('Stake'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16.0),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
             ),
           ],
-        );
-      },
-      loading: () => Center(
-          child: RotationTransition(
-        turns:
-            Tween(begin: 0.0, end: -1.0).animate(_controller), // вращение влево
-        child: SvgPicture.string(
-          _spinnerSvg,
-          width: 40,
-          height: 40,
         ),
-      )),
-      error: (err, _) => Center(child: Text('Error: $err')),
-    ));
+      ),
+    );
+  }
+
+  Widget buildPeriodSelector() {
+    return CustomInkWell(
+      onTap: () {},
+      child: Container(
+        height: 30.0,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: const Row(
+          children: [
+            Text('365D', style: TextStyle(color: Colors.grey)),
+            Icon(Icons.keyboard_arrow_down_rounded,
+                color: Colors.grey, size: 21.0),
+          ],
+        ),
+      ),
+    );
   }
 }
 

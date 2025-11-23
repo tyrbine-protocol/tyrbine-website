@@ -33,12 +33,29 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
   final TextEditingController _stakeAmountController = TextEditingController();
   late AnimationController _controller;
 
-  bool _hasScrolled = false;
-  bool _isAtTop = true;
   bool _showVaultSection = false;
   num estimatedDailyAmount = 0;
   final transactionStatus = ValueNotifier<TxStatus>(TxStatus(status: ''));
   late final TopWebBar topWebBar;
+
+  final GlobalKey _topContentKey = GlobalKey();
+  bool _showTopDivider = false;
+
+  void _updateDividerVisibility() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_topContentKey.currentContext!.mounted) return;
+
+      final box = _topContentKey.currentContext!.findRenderObject() as RenderBox;
+      final position = box.localToGlobal(Offset.zero);
+      final shouldShow = position.dy < 0; // верх контента вышел за экран
+
+      if (_showTopDivider != shouldShow) {
+        setState(() {
+          _showTopDivider = shouldShow;
+        });
+      }
+    });
+  }
 
 
   @override
@@ -49,18 +66,6 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2))
           ..repeat();
-  }
-
-  void _onScroll(double offset) {
-    final isNowAtTop = offset <= 0;
-    if (_isAtTop != isNowAtTop) {
-      setState(() {
-        _isAtTop = isNowAtTop;
-        if (!_hasScrolled && !isNowAtTop) {
-          _hasScrolled = true;
-        }
-      });
-    }
   }
 
   void _onStakeAmountChanged() {
@@ -112,6 +117,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
             );
       }
     });
+
     return Scaffold(
       body: vaultsAsync.when(
       data: (stat) {
@@ -120,7 +126,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
           children: [
             NotificationListener<ScrollNotification>(
               onNotification: (scrollNotification) {
-                _onScroll(scrollNotification.metrics.pixels);
+                _updateDividerVisibility();
                 return true;
               },
               child: Stack(
@@ -129,6 +135,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                   SingleChildScrollView(
                     controller: _scrollController,
                     child: Column(
+                      key: _topContentKey,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -373,8 +380,9 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                 ),
                                                 const SizedBox(height: 32.0),
                                                 CustomInkWell(
-                                                  onTap: () => isConnected
-                                                      ? staking(
+                                                  onTap: () {
+                                                    if (isConnected) {
+                                                      staking(
                                                           context,
                                                           ref,
                                                           adapter: wallet!,
@@ -383,8 +391,10 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
                                                           status: transactionStatus,
                                                           amountText:
                                                               _stakeAmountController
-                                                                  .text)
-                                                      : null,
+                                                                  .text);
+                                                        _stakeAmountController.clear();
+                                                    } 
+                                                  },
                                                   child: Container(
                                                     height: 42.0,
                                                     width: MediaQuery.of(context)
@@ -494,7 +504,7 @@ class _HomeWebScreenState extends ConsumerState<HomeWebScreen>
               right: 0,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 200),
-                opacity: _isAtTop ? 0.0 : 1.0,
+                opacity: !_showTopDivider ? 0.0 : 0.5,
                 child: const Divider(height: 0.5, color: Color(0xFF2B2B2B)),
               ),
             ),

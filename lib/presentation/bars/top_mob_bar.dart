@@ -58,8 +58,8 @@ class _TopMobBarState extends ConsumerState<TopMobBar> {
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(5.0)),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(wallet!.pubkey!.cutText(start: 2, end: 7),
                               style: const TextStyle(
